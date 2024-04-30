@@ -10,8 +10,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTabsModule} from "@angular/material/tabs";
 
-import {Remodeler} from "/src/app/reStyle/remodeler/models/remodeler.ts";
-import {RemodelerApiService} from "/src/app/reStyle/remodeler/services/remodeler-api.service.ts";
+import {Remodeler} from "../../models/remodeler";
+import {RemodelerApiService} from "../../services/remodeler-api.service";
 import {Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 
