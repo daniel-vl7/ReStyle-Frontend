@@ -11,6 +11,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {RemodelerApiService} from "../../services/remodeler-api.service";
 import {Router} from "@angular/router";
+import {PortfolioTableComponent} from "../portfolio-table/portfolio-table.component";
 
 @Component({
   selector: 'app-remodeler-detail',
@@ -24,7 +25,8 @@ import {Router} from "@angular/router";
     MatButtonModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    PortfolioTableComponent
   ],
   templateUrl: './remodeler-detail.component.html',
   styleUrl: './remodeler-detail.component.css'

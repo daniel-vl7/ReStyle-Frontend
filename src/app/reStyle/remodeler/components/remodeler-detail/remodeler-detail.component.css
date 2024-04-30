@@ -65,19 +65,32 @@
   height: 3rem;
 }
 /*portfolio styles*/
+.portfolio-content{
+    display: flex;
+    flex-direction: row;
+}
 .portfolio-info {
   flex: 1;
   border-right: 1px solid #ddd;
   width: 40%;
-  padding: 20px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+.portfolio-info img{
+  margin-top: 25px;
+}
 .portfolio-info p{
-  padding-right: 150px;
-  padding-left: 150px;
+  padding-right: 100px;
+  padding-left: 100px;
   text-align: center;
+}
+.portfolio-projects{
+  width: 60%;
+}
+.portfolio-projects h3{
+  padding-left: 5px;
 }
 /*reviews styles*/
 .remodeler-reviews-card{

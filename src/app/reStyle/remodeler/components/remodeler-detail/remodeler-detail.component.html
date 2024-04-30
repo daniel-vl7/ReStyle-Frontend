@@ -71,8 +71,21 @@
             <h2>{{remodeler.name}}</h2>
             <p>{{remodeler.description}}</p>
           </div>
+          <div class="portfolio-projects">
+            <h3>Nuestros proyectos</h3>
+            <div class="remodeler-reviews-card" *ngFor="let project of remodeler.portfolio">
+              <mat-card class="review-card">
+                <mat-card-header>
+                  <img class="review-card-img" mat-card-image src="{{project.image}}" alt="Review Image">
+                </mat-card-header>
+                <mat-card-content class="review-content">
+                  <p style="color: #3F51B5; font-size: 1rem; font-weight: bold;">{{project.name}}</p>
+                  <p>{{project.description}}</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
         </div>
-
       </mat-tab>
       <mat-tab label="Reviews">
         <div class="remodeler-reviews-card" *ngFor="let review of remodeler.reviews">
