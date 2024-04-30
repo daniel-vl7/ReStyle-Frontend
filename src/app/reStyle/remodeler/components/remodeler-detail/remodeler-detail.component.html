@@ -65,9 +65,15 @@
         </div>
       </mat-tab>
       <mat-tab label="Portafolio">
+        <div class="portfolio-content">
+          <div class="portfolio-info">
+            <img src="{{remodeler.image}}" alt="Logo" width="250px">
+            <h2>{{remodeler.name}}</h2>
+            <p>{{remodeler.description}}</p>
+          </div>
+        </div>
 
       </mat-tab>
-
       <mat-tab label="Reviews">
         <div class="remodeler-reviews-card" *ngFor="let review of remodeler.reviews">
             <mat-card class="review-card">

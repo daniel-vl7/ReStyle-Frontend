@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'
 
 import {MatInputModule} from "@angular/material/input";
@@ -9,8 +9,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
-
-import {RemodelerApiService} from "/src/app/reStyle/remodeler/services/remodeler-api.service.ts";
+import {RemodelerApiService} from "../../services/remodeler-api.service";
 import {Router} from "@angular/router";
 
 @Component({
