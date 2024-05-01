@@ -1,0 +1,113 @@
+<app-toolbar> </app-toolbar>
+<app-sidebar></app-sidebar>
+
+<div class="remodeler-profile-container">
+
+  <div class="remodeler-header-container">
+    <div class="remodeler-profile-header">
+      <p class="remodeler-name">{{ remodeler.name }}</p>
+      <p class="remodeler-address">{{ remodeler.address + ', ' + remodeler.city}}</p>
+    </div>
+    <div class="remodeler-exp">
+      <p class="remodeler-expertise">{{ remodeler.expertise }}</p>
+    </div>
+  </div>
+
+  <div class="remodeler-profile-tabs">
+    <mat-tab-group class="profile-tabs">
+      <mat-tab label="Perfil">
+        <div class="remodeler-profile-card">
+          <mat-card class="profile-card">
+            <mat-card-header>
+              <img class="remodeler-card-img" mat-card-image src="{{remodeler.image}}" alt="Remodeler Image">
+            </mat-card-header>
+            <mat-card-content>
+              <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+              <p style="color: #3F51B5; font-size: 1.5rem; font-weight: bold;">{{remodeler.name}}</p>
+              <p>{{remodeler.description}}</p>
+            </mat-card-content>
+          </mat-card>
+          <div class="remodeler-contact-form">
+            <p style="font-weight: bold; font-size: 1.2rem;">Contáctanos!</p>
+            <div class="form-names">
+              <p> Nombre <br>
+                <mat-form-field appearance="fill"  style="width: 100%;">
+                  <mat-label>Texto</mat-label>
+                  <input matInput placeholder="">
+                </mat-form-field>
+              </p>
+              <p> Apellido <br>
+                <mat-form-field appearance="fill"  style="width: 100%;">
+                  <mat-label>Texto</mat-label>
+                  <input matInput placeholder="">
+                </mat-form-field>
+              </p>
+            </div>
+            <p> Correo electrónico <br>
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Texto</mat-label>
+                <input matInput placeholder="">
+              </mat-form-field>
+            </p>
+            <p> Teléfono <br>
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Texto</mat-label>
+                <input matInput placeholder="">
+              </mat-form-field>
+            </p>
+            <p> Mensaje <br>
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Texto</mat-label>
+                <input matInput placeholder="">
+              </mat-form-field>
+            </p>
+            <div class="send-button">
+              <button class ="send-btn" mat-flat-button>Enviar</button>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Portafolio">
+        <div class="portfolio-content">
+          <div class="portfolio-info">
+            <img src="{{remodeler.image}}" alt="Logo" width="250px">
+            <h2>{{remodeler.name}}</h2>
+            <p>{{remodeler.description}}</p>
+          </div>
+          <div class="portfolio-projects">
+            <h3>Nuestros proyectos</h3>
+            <div class="remodeler-reviews-card" *ngFor="let project of remodeler.portfolio">
+              <mat-card class="review-card">
+                <mat-card-header>
+                  <img class="review-card-img" mat-card-image src="{{project.image}}" alt="Review Image">
+                </mat-card-header>
+                <mat-card-content class="review-content">
+                  <p style="color: #3F51B5; font-size: 1rem; font-weight: bold;">{{project.name}}</p>
+                  <p>{{project.description}}</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Reviews">
+        <div class="remodeler-reviews-card" *ngFor="let review of remodeler.reviews">
+            <mat-card class="review-card">
+              <mat-card-header>
+                <img class="review-card-img" mat-card-image src="{{review.image}}" alt="Review Image">
+              </mat-card-header>
+              <mat-card-content class="review-content">
+                <p style="color: #3F51B5; font-size: 1rem; font-weight: bold;">{{review.project}}</p>
+                <mat-icon class="review-icon">person</mat-icon> <p style="display: inline-block;">Client: </p> <p style="display: inline-block; color: #757DE8;"> {{review.client_name}}</p> <br>
+                <mat-icon class="review-icon">schedule</mat-icon> <p style="display: inline-block;">Duration: {{review.duration}}</p>
+                <p>{{review.comment}}</p>
+                <p style="display: inline-block;">Rating: {{review.rating}}</p> <mat-icon class="review-icon" style="color: #DDAF0A;">star</mat-icon>
+              </mat-card-content>
+            </mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+</div>
+

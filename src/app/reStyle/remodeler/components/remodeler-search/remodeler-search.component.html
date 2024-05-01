@@ -1,0 +1,118 @@
+<app-toolbar> </app-toolbar>
+<app-sidebar></app-sidebar>
+
+<div class="remodeler-search-container">
+  <div class="remodeler-search-start">
+    <form class="search-form">
+      <mat-form-field class="search-bar">
+        <mat-icon matPrefix>search</mat-icon>
+        <input class="bar" matInput placeholder="Buscar por..." value="" [(ngModel)]="searchTerm" name="searchTerm">
+      </mat-form-field>
+    </form>
+
+    <div class="search-filter">
+      <button class="filter-btn" mat-button [matMenuTriggerFor]="menu">Filtro</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="applyFilter('Lima')">Solo en Lima</button>
+        <button mat-menu-item (click)="applyFilter('Provincia')">Solo en provincia</button>
+        <button mat-menu-item (click)="applyFilter('Todos')">Ver Todos</button>
+      </mat-menu>
+    </div>
+
+    <div class="search-buttons">
+      <button class ="search-btn" mat-flat-button (click)="applySearchFilter(searchTerm)">Buscar</button>
+      <button class ="clear-btn" mat-flat-button (click)="clearFilter()">Limpiar</button>
+    </div>
+  </div>
+
+  <div class="remodeler-search-tabs">
+    <mat-tab-group class="search-tabs">
+
+      <mat-tab label="Todos">
+        <div class="remodeler-cards-home" *ngFor="let remodeler of remodelers">
+          <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
+          <div class="remodeler-card" *ngFor="let project of remodeler.portfolio">
+            <mat-card class="project-card">
+              <mat-card-header>
+                <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+              </mat-card-header>
+              <mat-card-content >
+                <p>{{project.name}}</p>
+                <img class="project-card-img" mat-card-image src="{{project.image}}" alt="Project Image">
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Habitación/Baño">
+        <div class="remodeler-cards-expertise" *ngFor="let remodeler of remodelers">
+          <ng-container *ngIf="remodeler.expertise === 'Habitacion'">
+            <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
+            <div class="remodeler-card" *ngFor="let project of remodeler.portfolio">
+              <mat-card class="project-card">
+                <mat-card-header>
+                  <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+                </mat-card-header>
+                <mat-card-content >
+                  <p>{{project.name}}</p>
+                  <img class="project-card-img" mat-card-image src="{{project.image}}" alt="Project Image">
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </ng-container>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Cocina/Comedor">
+        <div class="remodeler-cards-expertise" *ngFor="let remodeler of remodelers">
+          <ng-container *ngIf="remodeler.expertise === 'Cocina'">
+            <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
+            <div class="remodeler-card" *ngFor="let project of remodeler.portfolio">
+              <mat-card class="project-card">
+                <mat-card-header>
+                  <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+                </mat-card-header>
+                <mat-card-content >
+                  <p>{{project.name}}</p>
+                  <img class="project-card-img" mat-card-image src="{{project.image}}" alt="Project Image">
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </ng-container>
+        </div>
+      </mat-tab>
+      <mat-tab label="Otros">
+        <div class="remodeler-cards-expertise" *ngFor="let remodeler of remodelers">
+          <ng-container *ngIf="remodeler.expertise === 'Baño'">
+            <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
+            <div class="remodeler-card" *ngFor="let project of remodeler.portfolio">
+              <mat-card class="project-card">
+                <mat-card-header>
+                  <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+                </mat-card-header>
+                <mat-card-content >
+                  <p>{{project.name}}</p>
+                  <img class="project-card-img" mat-card-image src="{{project.image}}" alt="Project Image">
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </ng-container>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="remodeler-search-pagination">
+    <mat-paginator [length]="8" [pageSizeOptions]="[4]" aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+</div>
+
+
+
+
+
+
+

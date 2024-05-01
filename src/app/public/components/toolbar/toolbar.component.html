@@ -1,0 +1,30 @@
+<mat-toolbar class="toolbar">
+  <mat-toolbar-row>
+    <div class="toolbar-title-logo">
+      <img class ="toolbar-logo" src="/assets/images/restyle-logo.svg" alt="reStyle Logo" width="40" height="40"  onmouseover="">
+      <p class="toolbar-title">ReStyle</p>
+    </div>
+    <div class="toolbar-icons">
+      <div class="toolbar-chat">
+        <mat-icon class="material-icons-outlined" matBadge="3" matBadgeColor="warn">chat</mat-icon>
+        <p class="toolbar-msg">Mensajes</p>
+      </div>
+      <div class="toolbar-profile">
+        <mat-icon class="material-icons-outlined" aria-hidden="false" aria-label="Example person outline icon">person_outline</mat-icon>
+        <p class="toolbar-prof">Mi Perfil</p>
+      </div>
+      <div class="toolbar-menu">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon class="material-icons-outlined" aria-hidden="false" aria-label="Example menu icon">menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Mis Proyectos</button>
+          <button mat-menu-item (click)="redirectToRemodelers()">Remodeladores</button>
+          <button mat-menu-item>Portafolios</button>
+          <button mat-menu-item>Mensajes</button>
+          <button mat-menu-item>Soporte</button>
+        </mat-menu>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
