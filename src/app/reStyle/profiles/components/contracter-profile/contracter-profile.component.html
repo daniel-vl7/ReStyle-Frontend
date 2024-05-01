@@ -1,1 +1,74 @@
-<p>contracter-profile works!</p>
+<app-toolbar></app-toolbar>
+<app-sidebar></app-sidebar>
+
+
+<div class="profile-section">
+    <div class="profile-container">
+        <mat-card class="card">
+
+            <mat-card-header class="title-profile">
+                <mat-card-title> {{contracterData.firstName +" " + contracterData.paternalSurname}}</mat-card-title>
+                <mat-card-subtitle> contratista </mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content class="information-profile">
+
+                <div class="photo-profile">
+                    <img src="assets/images/profile-temporal.webp" alt="photo" class="photo">
+                </div>
+
+                <div class="description-profile">
+                    <p>{{contracterData.description}}</p>
+                </div>
+
+                <div class="contact-information">
+
+                    <div class="information">
+                        <mat-icon class="icons">email</mat-icon>
+                        <span class="correo-text">Correo</span>
+                    </div>
+                    <p>{{contracterData.email}}</p>
+
+                    <div class="information">
+                        <mat-icon class="icons">perm_contact_calendar</mat-icon>
+                        <span class="contacto-text">Contacto</span>
+                    </div>
+                    <p>{{contracterData.phone}}</p>
+
+                    <div class="information">
+                        <mat-icon class="icons">subscriptions</mat-icon>
+                        <span class="suscripcion-text">Suscripción </span>
+                    </div>
+                    <p>{{contracterData.subscription}}</p>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <div class="remodeler-reviews">
+            <h2>Reseñas</h2>
+            <div class="remodeler-reviews-card" *ngFor="let review of remodeler.reviews">
+                <mat-card class="review-card">
+                    <mat-card-header>
+                        <img width="400px" class="review-card-img" mat-card-image src="{{review.image}}" alt="Review Image">
+                    </mat-card-header>
+                    <mat-card-content class="review-content">
+                        <p style="color: #3F51B5; font-size: 1rem; font-weight: bold;">{{review.project}}</p>
+                        <mat-icon class="review-icon">person</mat-icon> <p style="display: inline-block;">Client: </p> <p style="display: inline-block; color: #757DE8;"> {{contracterData.firstName +" " + contracterData.paternalSurname}}</p> <br>
+                        <mat-icon class="review-icon">schedule</mat-icon> <p style="display: inline-block;">Duration: {{review.duration}}</p>
+                        <p>{{review.comment}}</p>
+                        <p style="display: inline-block;">Rating: {{review.rating}}</p> <mat-icon class="review-icon" style="color: #DDAF0A;">star</mat-icon>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>
+
+
+

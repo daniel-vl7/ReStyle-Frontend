@@ -91,10 +91,12 @@ export class SignInComponent {
             sessionStorage.setItem("typeId", response.id.toString());
           });
 
-          this.router.navigate(['home/remodeler']).then((r: any) => console.log(r));
+
+
+          this.router.navigate(['home/profile/remodeler']).then((r: any) => console.log(r));
         }
         else if (this.currentUser.type == "Contracter"){
-          this.router.navigate(['home/user']).then((r: any) => console.log(r));
+          this.router.navigate(['home/profile/contracter']).then((r: any) => console.log(r));
         } else{
           console.log("Usuario o contraseña incorrectos")
         }

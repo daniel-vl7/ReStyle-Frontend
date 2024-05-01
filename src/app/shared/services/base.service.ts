@@ -69,6 +69,13 @@ export class BaseService<T> {
         .pipe(retry(2), catchError(this.handleError));
   }
 
+    // Get Resource by Id
+    getItemById(id: any): Observable<T> {
+        return this.http.get<T>(`${this.resourcePath()}/${id}`, this.httpOptions)
+            .pipe(retry(2), catchError(this.handleError));
+
+    }
+
 
   //Método para anidar un endpoint a la URL base
   private resourcePath(): string {

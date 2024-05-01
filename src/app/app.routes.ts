@@ -6,12 +6,21 @@ import {ComingSoonComponent} from "./public/pages/coming-soon/coming-soon.compon
 import {RemodelerDetailComponent} from "./reStyle/remodeler/components/remodeler-detail/remodeler-detail.component";
 import {SignInComponent} from "./reStyle/security/components/sign-in/sign-in.component";
 import {SignUpComponent} from "./reStyle/security/components/sign-up/sign-up.component";
+import {
+  ContracterProfileComponent
+} from "./reStyle/profiles/components/contracter-profile/contracter-profile.component";
+import {RemodelerProfileComponent} from "./reStyle/profiles/components/remodeler-profile/remodeler-profile.component";
 
 export const routes: Routes = [
 
   {path:'home',  component: HomeComponent},
   {path: 'home/signUp', component: SignUpComponent},
   {path: 'home/signIn', component: SignInComponent},
+  {path: 'home/profile/contracter', component: ContracterProfileComponent},
+  {path: 'home/profile/remodeler', component: RemodelerProfileComponent},
+
+
+
 
 
   {path: 'remodelers', component: RemodelerSearchComponent},

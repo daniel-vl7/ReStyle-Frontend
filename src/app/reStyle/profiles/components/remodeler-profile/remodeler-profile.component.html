@@ -1,1 +1,48 @@
-<p>remodeler-profile works!</p>
+<app-toolbar></app-toolbar>
+<app-sidebar></app-sidebar>
+
+
+<div class="profile-section">
+    <div class="profile-container">
+        <mat-card class="card">
+
+            <mat-card-header class="title-profile">
+                <mat-card-title> {{remodelerData.firstName +" " + remodelerData.paternalSurname}}</mat-card-title>
+                <mat-card-subtitle> Experto en remodelación </mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content class="information-profile">
+
+                <div class="photo-profile">
+                    <img src="assets/images/profile-temporal.webp" alt="photo" class="photo">
+                </div>
+
+                <div class="description-profile">
+                    <p>{{remodelerData.description}}</p>
+                </div>
+
+                <div class="contact-information">
+
+                    <div class="information">
+                        <mat-icon class="icons">email</mat-icon>
+                        <span class="correo-text">Correo</span>
+                    </div>
+                    <p>{{remodelerData.email}}</p>
+
+                    <div class="information">
+                        <mat-icon class="icons">perm_contact_calendar</mat-icon>
+                        <span class="contacto-text">Contacto</span>
+                    </div>
+                    <p>{{remodelerData.phone}}</p>
+
+                    <div class="information">
+                        <mat-icon class="icons">subscriptions</mat-icon>
+                        <span class="suscripcion-text">Suscripción </span>
+                    </div>
+                    <p>{{remodelerData.subscription}}</p>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
