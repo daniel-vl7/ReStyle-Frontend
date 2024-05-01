@@ -29,4 +29,7 @@ export class SidebarComponent {
   redirectToComingSoon(){
     this.router.navigateByUrl('/coming-soon');
   }
+  redirectToReviews(){
+    this.router.navigateByUrl('/reviews');
+  }
 }
