@@ -14,22 +14,26 @@ import {Remodeler} from "../../models/remodeler";
 import {RemodelerApiService} from "../../services/remodeler-api.service";
 import {Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.component";
+import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
 
 @Component({
   selector: 'app-remodeler-search',
   standalone: true,
-  imports: [
-    MatPaginator,
-    MatInputModule,
-    MatCardModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatTabsModule,
-    CommonModule,
-    FormsModule
-  ],
+    imports: [
+        MatPaginator,
+        MatInputModule,
+        MatCardModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatTabsModule,
+        CommonModule,
+        FormsModule,
+        SidebarComponent,
+        ToolbarComponent
+    ],
   templateUrl: './remodeler-search.component.html',
   styleUrl: './remodeler-search.component.css'
 })

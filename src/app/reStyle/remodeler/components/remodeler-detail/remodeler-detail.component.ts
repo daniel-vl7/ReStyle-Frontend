@@ -11,21 +11,25 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {RemodelerApiService} from "../../services/remodeler-api.service";
 import {Router} from "@angular/router";
+import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.component";
+import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
 
 @Component({
   selector: 'app-remodeler-detail',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatCardModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatTabsModule,
-    MatFormFieldModule,
-  ],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatCardModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatTabsModule,
+        MatFormFieldModule,
+        SidebarComponent,
+        ToolbarComponent,
+    ],
   templateUrl: './remodeler-detail.component.html',
   styleUrl: './remodeler-detail.component.css'
 })
