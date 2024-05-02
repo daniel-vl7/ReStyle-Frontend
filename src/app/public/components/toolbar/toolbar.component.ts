@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import {MatBadgeModule} from "@angular/material/badge";
 import {Router} from "@angular/router";
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -20,10 +20,48 @@ import {Router} from "@angular/router";
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css'
 })
-export class ToolbarComponent {
-  constructor(private router: Router) {
+export class ToolbarComponent implements OnInit {
+
+  type: string = '';
+  id: any | undefined;
+
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
+
+  ngOnInit() {
+    this.type = sessionStorage.getItem("userType") || '';
+    this.id = sessionStorage.getItem("userId");
+    console.log(this.type + ' ' + this.id);
+  }
+
   redirectToRemodelers() {
     this.router.navigate(['/remodelers']);
+  }
+
+  inDevelopment(){
+    alert('Esta opción está en desarrollo, Disculpe las molestias!');
+  }
+
+  redirectToProfile() {
+    this.router.navigate([`home/profile/${this.type}/${this.id}`])
+  }
+
+  logOut(){
+    sessionStorage.clear();
+    this.router.navigate(['/home']);
+  }
+  redirectToReviews(){
+    if(this.type === 'remodeler'){
+      alert('Solo los contratistas pueden acceder a esta sección');
+    }else if(this.type === 'contracter'){
+      this.router.navigateByUrl('/reviews');
+    }
+  }
+  redirectToProyects(){
+    if(this.type === 'remodeler'){
+      this.router.navigate(['/home/remodeler/timeline']);
+    }else if(this.type === 'contracter'){
+      this.router.navigateByUrl('/coming-soon');
+    }
   }
 }

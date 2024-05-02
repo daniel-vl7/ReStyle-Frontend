@@ -1,6 +1,7 @@
 
 mat-toolbar {
     position: fixed;
+    font-family: "Montserrat", sans-serif;
 }
 
 .logo-container {

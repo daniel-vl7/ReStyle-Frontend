@@ -10,6 +10,7 @@ import {UserService} from "../../services/user.service";
 import {MatTableModule} from "@angular/material/table";
 import {User} from "../../model/user.entity";
 
+
 @Component({
   selector: 'app-sign-in',
   standalone: true,
@@ -59,6 +60,7 @@ export class SignInComponent {
   }
 
 
+
   getAllResources(){
     this.usersService.getAll().subscribe((response: any)=>{
       this.users = response;
@@ -84,22 +86,26 @@ export class SignInComponent {
         sessionStorage.setItem("userId", this.currentUser.id.toString());
 
         this.loginForm.reset();
-
         if (this.currentUser.type == "Remodeler") {
 
+          console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
           this.usersService.getItemByField("userId", Number(sessionStorage.getItem("userId"))).subscribe((response: any) => {
             sessionStorage.setItem("typeId", response.id.toString());
           });
-
-
-
-          this.router.navigate(['home/profile/remodeler']).then((r: any) => console.log(r));
+          sessionStorage.setItem("userType", "remodeler");
+          sessionStorage.setItem("name", this.currentUser.firstName.toString() + " " + this.currentUser.paternalSurname.toString());
+          console.log(sessionStorage.getItem("name"))
+          this.router.navigate([`home/profile/remodeler/${this.currentUser.id}`]).then((r: any) => console.log(r));
         }
         else if (this.currentUser.type == "Contracter"){
-          this.router.navigate(['home/profile/contracter']).then((r: any) => console.log(r));
+
+          console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
+          sessionStorage.setItem("userType", "contracter");
+          this.router.navigate([`home/profile/contracter/${this.currentUser.id}`]).then((r: any) => console.log(r));
         } else{
           console.log("Usuario o contraseña incorrectos")
         }
+        sessionStorage.setItem("userId", this.currentUser.id.toString());
       }
     })
   }

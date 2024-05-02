@@ -95,7 +95,6 @@ photo-profile {
 .remodeler-reviews-card{
     flex-direction: row;
     margin-top: 1rem;
-    background-color: #F5F5F5;
     padding: 0.2rem;
 }
 
@@ -104,6 +103,7 @@ photo-profile {
     flex-direction: row;
     max-width: 100%;
     padding: 3rem;
+
 }
 
 

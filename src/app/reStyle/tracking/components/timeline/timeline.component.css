@@ -12,10 +12,10 @@
   left: 43%;
   position: fixed;
   color: #333;
-
 }
 
 .timeline {
+  padding-left: 5rem;
   top:12%;
   display: flex;
   position: relative;
@@ -24,13 +24,12 @@
 .timeline__items {
   display: flex;
   width: 100%;
-  justify-content: space-between;
   position: fixed;
+  margin-left: 22rem;
 }
 
 .timeline__item {
-  margin-right: 50px;
-  margin-left: 20px;
+  margin-left: 3rem;
   margin-top: 10px;
   align-items: center;
 }

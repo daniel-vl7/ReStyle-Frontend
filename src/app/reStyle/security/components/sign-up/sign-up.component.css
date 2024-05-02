@@ -1,5 +1,5 @@
 .signup-container{
-    padding: 20px;
+    padding: 5rem 5rem;
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
 .signup-section {
     margin-top: 60px;
     border-radius: 40px;
-    background-color: #757DE8;
+    background-color: #DEDEFF;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,7 +32,7 @@
 .logo-text {
     margin-left: 8px;
     font-weight: 800;
-    font-size: 30px;
+    font-size: 3rem;
 }
 
 .signup-form-container {

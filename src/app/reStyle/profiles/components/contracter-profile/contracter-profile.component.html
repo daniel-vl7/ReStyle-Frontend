@@ -7,7 +7,7 @@
         <mat-card class="card">
 
             <mat-card-header class="title-profile">
-                <mat-card-title> {{contracterData.firstName +" " + contracterData.paternalSurname}}</mat-card-title>
+                <mat-card-title style="color: #3F51B5;"> {{contracterData.firstName +" " + contracterData.paternalSurname}}</mat-card-title>
                 <mat-card-subtitle> contratista </mat-card-subtitle>
             </mat-card-header>
 
@@ -46,7 +46,7 @@
         </mat-card>
 
         <div class="remodeler-reviews">
-            <h2>Reseñas</h2>
+            <h2 style="color: #3F51B5; font-size: 1.5rem;">Reseñas</h2>
             <div class="remodeler-reviews-card" *ngFor="let review of remodeler.reviews">
                 <mat-card class="review-card">
                     <mat-card-header>

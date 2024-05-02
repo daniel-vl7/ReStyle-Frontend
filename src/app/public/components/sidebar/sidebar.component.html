@@ -3,9 +3,16 @@
   <mat-sidenav-content class="sidenav-content">
     <div class="sidenav-start">
       <div class ="sidenav-icons">
-        <img mat-card-avatar class="sidenav-image" src="/assets/images/placeholder-user.jpg" alt="Sidenav avatar"/>
-        <mat-icon matPrefix>settings</mat-icon>
-        <mat-icon matBadge="1" matBadgeSize="medium" matBadgeColor="warn">notifications</mat-icon>
+          <a (click)="redirectToProfile()">
+              <img mat-card-avatar class="sidenav-image" src="/assets/images/placeholder-user.jpg" alt="Sidenav avatar"/>
+          </a>
+          <a (click)="inDevelopment()">
+              <mat-icon matPrefix>settings</mat-icon>
+          </a>
+          <a (click)="inDevelopment()">
+              <mat-icon matBadge="1" matBadgeSize="medium" matBadgeColor="warn">notifications</mat-icon>
+          </a>
+
       </div>
 
       <form class="search-form">
@@ -19,10 +26,10 @@
     <div class="sidenav-links">
       <a>
         <mat-icon matPrefix>home</mat-icon>
-        <p style="display: inline;">Inicio</p>
+        <p style="display: inline;" (click)="redirectToRemodelers()">Inicio</p>
       </a>
         <div class="sidenav-links-separator"></div>
-      <a>
+      <a (click)="redirectToProyects()">
         <mat-icon matPrefix>folder</mat-icon>
           <p style="display: inline;">Mis Proyectos</p>
       </a>

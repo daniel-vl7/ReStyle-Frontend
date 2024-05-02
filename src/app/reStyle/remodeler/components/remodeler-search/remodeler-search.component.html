@@ -47,7 +47,7 @@
 
       <mat-tab label="Habitación/Baño">
         <div class="remodeler-cards-expertise" *ngFor="let remodeler of remodelers">
-          <ng-container *ngIf="remodeler.expertise === 'Habitacion'">
+          <ng-container *ngIf="remodeler.expertise === 'Habitacion' || remodeler.expertise === 'Baño'">
             <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
             <div class="remodeler-card" *ngFor="let project of remodeler.portfolio">
               <mat-card class="project-card">
@@ -84,7 +84,7 @@
       </mat-tab>
       <mat-tab label="Otros">
         <div class="remodeler-cards-expertise" *ngFor="let remodeler of remodelers">
-          <ng-container *ngIf="remodeler.expertise === 'Baño'">
+          <ng-container *ngIf="remodeler.expertise === 'Hogar'">
             <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
             <div class="remodeler-card" *ngFor="let project of remodeler.portfolio">
               <mat-card class="project-card">
