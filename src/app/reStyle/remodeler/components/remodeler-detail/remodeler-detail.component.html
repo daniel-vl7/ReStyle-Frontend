@@ -106,6 +106,83 @@
             </mat-card>
         </div>
       </mat-tab>
+
+        <mat-tab label="Solicitar Proyecto">
+            <div class="remodeler-proyect-tab">
+                <form [formGroup]="proyectRequestForm" (ngSubmit)="onSubmit()">
+                    <div class="remodeler-proyect-form">
+                        <p style="font-weight: bold; font-size: 1.2rem;">Solicita una cotización para tu Proyecto!</p>
+                        <h3>Tus Datos Personales</h3>
+                        <div class="form-client-data">
+                            <div> Nombre <br>
+                                <mat-form-field appearance="fill"  style="width: 100%;">
+                                    <input matInput placeholder="Texto" required formControlName="name">
+                                </mat-form-field>
+                            </div>
+                            <div> Apellido <br>
+                                <mat-form-field appearance="fill"  style="width: 100%;">
+                                    <input matInput placeholder="Texto" required formControlName="surname">
+                                </mat-form-field>
+                            </div>
+                            <div> Teléfono <br>
+                                <mat-form-field appearance="fill" style="width: 100%;">
+                                    <input matInput type="number" placeholder="999 999 999" required formControlName="phone">
+                                    <span matTextPrefix>+51&nbsp;</span>
+                                </mat-form-field>
+                            </div>
+                            <div> Correo electrónico <br>
+                                <mat-form-field appearance="fill" style="width: 100%;">
+                                    <input matInput placeholder="dirección@email.com" required formControlName="email">
+                                </mat-form-field>
+                            </div>
+                            <div> Dirección <br>
+                                <mat-form-field appearance="fill" style="width: 100%;">
+                                    <input matInput placeholder="Texto" required formControlName="address">
+                                </mat-form-field>
+                            </div>
+                            <div> Ciudad <br>
+                                <mat-form-field appearance="fill" style="width: 100%;">
+                                    <input matInput placeholder="Texto" required formControlName="city">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <h3>Información del Proyecto</h3>
+                        <div class="form-proyect-data">
+                            <div> Fecha estimada de finalización <br>
+                                <mat-form-field>
+                                    <mat-label>Fecha</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="date">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div> Presupuesto <br>
+                                <mat-form-field floatLabel="always">
+                                    <mat-label>Monto en USD</mat-label>
+                                    <input matInput type="number" class="example-right-align" placeholder="0" required formControlName="budget">
+                                    <span matTextPrefix>$&nbsp;</span>
+                                </mat-form-field>
+                            </div>
+                            <div> Número de Habitaciones <br>
+                                <mat-form-field appearance="fill" style="width: 100%;">
+                                    <input matInput type="number" placeholder="Número" required formControlName="rooms">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div> Resumen <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <textarea matInput placeholder="Describa lo que desea en su proyecto" required formControlName="summary"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="send-button">
+                            <button class ="send-btn" mat-flat-button type="submit" [disabled]="proyectRequestForm.invalid">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-tab>
     </mat-tab-group>
   </div>
 

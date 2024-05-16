@@ -6,14 +6,16 @@ import {environment} from "../../../../environments/environment";
 })
 export class RemodelerApiService {
 
-  baseUrl: string = environment.baseURL;
+  baseUrl: string = 'http://localhost:3000';
   constructor(private http:HttpClient) { }
 
   getRemodelers(){
-    return this.http.get(`${this.baseUrl}/alehandraxx/myrepo/remodelers`);
+    return this.http.get(`${this.baseUrl}/remodelers`);
   }
   getRemodelerById(id: any){
-    return this.http.get(`${this.baseUrl}/alehandraxx/myrepo/remodelers/${id}`);
+    return this.http.get(`${this.baseUrl}/remodelers/${id}`);
   }
-
+  createProyectRequest(data: any){
+    return this.http.post(`${this.baseUrl}/proyectRequests`, data);
+  }
 }
