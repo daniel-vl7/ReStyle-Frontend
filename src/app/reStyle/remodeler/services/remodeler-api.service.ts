@@ -18,4 +18,7 @@ export class RemodelerApiService {
   createProyectRequest(data: any){
     return this.http.post(`${this.baseUrl}/proyectRequests`, data);
   }
+  getProyectRequestsById(id: any){
+    return this.http.get(`${this.baseUrl}/proyectRequests/${id}`);
+  }
 }

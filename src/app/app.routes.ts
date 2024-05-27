@@ -12,6 +12,7 @@ import {
 import {RemodelerProfileComponent} from "./reStyle/profiles/components/remodeler-profile/remodeler-profile.component";
 import {CreateReviewComponent} from "./reStyle/contracter/components/create-review/create-review.component";
 import {TimelineComponent} from "./reStyle/tracking/components/timeline/timeline.component";
+import {TrackingDetailComponent} from "./reStyle/tracking/components/tracking-detail/tracking-detail.component";
 
 export const routes: Routes = [
 
@@ -20,7 +21,8 @@ export const routes: Routes = [
   {path: 'home/signIn', component: SignInComponent},
   {path: 'home/profile/contracter/:id', component: ContracterProfileComponent},
   {path: 'home/profile/remodeler/:id', component: RemodelerProfileComponent},
-  {path: 'home/remodeler/timeline', component: TimelineComponent},
+  //{path: 'home/remodeler/timeline', component: TimelineComponent},
+  {path: 'home/remodeler/timeline', component: TrackingDetailComponent},
   {path: 'reviews', component: CreateReviewComponent},
   {path: 'remodelers', component: RemodelerSearchComponent},
   {path: 'remodelers/:id', component: RemodelerDetailComponent},

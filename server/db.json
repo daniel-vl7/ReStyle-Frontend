@@ -143,10 +143,57 @@
       "city": "Lima",
       "budget": 5000,
       "rooms": 1,
-      "summary": "Deseo cambiar las ventanas de mi dormitorio por unas de madera negra.",
-      "remodelerId": "1",
+      "summary": "Deseo que renuven el piso de mi cocina y pinten las paredes.",
+      "remodelerId": "4",
       "clientId": "1",
-      "id": 3
+      "id": 4
+    }
+  ],
+  "tracking": [
+    {
+      "id": 4,
+      "remodelerId": "4",
+      "clientId": "1",
+      "requirements": {
+        "jobTitle": "Cambio de piso y pintura de habitación en Miraflores",
+        "jobDescription": "Cambio de piso y pintura de un cuarto de 12m²",
+        "jobRequirements": [
+          "Permiso de contruccion no requerido",
+          "Debe tener licencia de construcción y seguro de responsabilidad civil",
+          "Retiro de piso antiguo",
+          "Parchado de agujeros menores en las paredes",
+          "Cerámica de 60x60 cm color gris claro",
+          "Pintura blanca mate",
+          "Horario de trabajo lunes a viernes 9:00am - 4:00pm",
+          "Debe dejar el cuarto limpio y ordenado al finalizar el trabajo.",
+          "Fecha de inicio y finalización:15 de mayo de 2024 al 25 de mayo de 2024",
+          "Presupuesto:S/. 10,000"
+        ],
+        "accepted": false
+      },
+      "technicalVisit": {
+        "price": 145,
+        "date": "2024-05-26T05:00:00.000Z",
+        "additionalDetails": "Cerca de Calle Los Girasoles 456, Miraflores, Lima, Peru"
+      },
+      "quote": [
+        {
+          "description": "Economica",
+          "price": 5000,
+          "details": "Ceramica San Lorenzo Linea economica s/. 30m², pintura Renner Linea economica s/.20/galon, albañil s/. 150/dia, pintor s/. 120/dia"
+        },
+        {
+          "description": "Intermedia",
+          "price": 7500,
+          "details": "Ceramica Cisa o Ceramica Lafarge s/. 50m², pintura Montana o Pinturas Latex s/.30/galon, albañil s/. 150/dia, pintor s/. 120/dia"
+        },
+        {
+          "description": "Premium",
+          "price": 10000,
+          "details": "Ceramica Duratex s/. 80m², pintura Sherwin-Williams o Pinturas PPG s/.40/galon, albañil s/. 150/dia, pintor s/. 120/dia"
+        }
+      ],
+      "projectApproval": true
     }
   ]
 }

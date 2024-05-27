@@ -8,14 +8,19 @@ import {TrakingI} from "../models/trackingI";
   providedIn: 'root'
 })
 export class TrackingIService {
+  baseUrl: string = 'http://localhost:3000';
   baseURL: string = environment.baseURL
-
   constructor(private http: HttpClient) {
 
   }
   getTrackingI():Observable< TrakingI> {
     return this.http.get <TrakingI> (`${this.baseURL}/vargas3470/tracking/procesosRemodelacion`);
-
+  }
+  getTrackingById(id:any){
+    return this.http.get (`${this.baseUrl}/tracking/${id}`);
+  }
+  updateTrackingById(id:any, input: any){
+    return this.http.put(`${this.baseUrl}/tracking/${id}`, input);
   }
 }
 
