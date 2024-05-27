@@ -9,16 +9,31 @@ export class RemodelerApiService {
   baseUrl: string = 'http://localhost:3000';
   constructor(private http:HttpClient) { }
 
-  getRemodelers(){
-    return this.http.get(`${this.baseUrl}/remodelers`);
+  getBusiness(){
+    return this.http.get(`${this.baseUrl}/business`);
   }
-  getRemodelerById(id: any){
-    return this.http.get(`${this.baseUrl}/remodelers/${id}`);
+  getBusinessById(id: any){
+    return this.http.get(`${this.baseUrl}/business/${id}`);
   }
-  createProyectRequest(data: any){
-    return this.http.post(`${this.baseUrl}/proyectRequests`, data);
+  createProjectRequest(data: any){
+    return this.http.post(`${this.baseUrl}/projectRequest`, data);
   }
-  getProyectRequestsById(id: any){
-    return this.http.get(`${this.baseUrl}/proyectRequests/${id}`);
+  getProjectRequestsById(id: any){
+    return this.http.get(`${this.baseUrl}/projectRequest/${id}`);
+  }
+  getProjects(){
+    return this.http.get(`${this.baseUrl}/project`);
+  }
+  getProjectsById(id: any){
+    return this.http.get(`${this.baseUrl}/project/${id}`);
+  }
+  getReviews(){
+    return this.http.get(`${this.baseUrl}/review`);
+  }
+  getReviewById(id: any){
+    return this.http.get(`${this.baseUrl}/review/${id}`);
+  }
+  getReviewByContractorId(id: any){
+    return this.http.get(`${this.baseUrl}/review?contractorId=${id}`);
   }
 }

@@ -35,7 +35,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   redirectToRemodelers() {
-    this.router.navigate(['/remodelers']);
+    this.router.navigate(['/business']);
   }
 
   inDevelopment(){
@@ -53,14 +53,14 @@ export class ToolbarComponent implements OnInit {
   redirectToReviews(){
     if(this.type === 'remodeler'){
       alert('Solo los contratistas pueden acceder a esta sección');
-    }else if(this.type === 'contracter'){
+    }else if(this.type === 'contractor'){
       this.router.navigateByUrl('/reviews');
     }
   }
   redirectToProyects(){
     if(this.type === 'remodeler'){
-      this.router.navigate(['/home/remodeler/timeline']);
-    }else if(this.type === 'contracter'){
+      this.router.navigate(['/home/remodeler/tracking']);
+    }else if(this.type === 'contractor'){
       this.router.navigateByUrl('/coming-soon');
     }
   }

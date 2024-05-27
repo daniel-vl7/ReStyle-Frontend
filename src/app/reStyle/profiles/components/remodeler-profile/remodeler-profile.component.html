@@ -4,10 +4,10 @@
 
 <div class="profile-section">
     <div class="profile-container">
-        <mat-card class="card">
+        <mat-card class="card" *ngFor="let remodeler of remodelers">
 
             <mat-card-header class="title-profile">
-                <mat-card-title> {{remodelerData.firstName +" " + remodelerData.paternalSurname}}</mat-card-title>
+                <mat-card-title> {{userData.firstName +" " + userData.paternalSurname}}</mat-card-title>
                 <mat-card-subtitle> Experto en remodelación </mat-card-subtitle>
             </mat-card-header>
 
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="description-profile">
-                    <p>{{remodelerData.description}}</p>
+                    <p>{{remodeler.description}}</p>
                 </div>
 
                 <div class="contact-information">
@@ -27,19 +27,19 @@
                         <mat-icon class="icons">email</mat-icon>
                         <span class="correo-text">Correo</span>
                     </div>
-                    <p>{{remodelerData.email}}</p>
+                    <p>{{userData.email}}</p>
 
                     <div class="information">
                         <mat-icon class="icons">perm_contact_calendar</mat-icon>
                         <span class="contacto-text">Contacto</span>
                     </div>
-                    <p>{{remodelerData.phone}}</p>
+                    <p>{{remodeler.phone}}</p>
 
                     <div class="information">
                         <mat-icon class="icons">subscriptions</mat-icon>
                         <span class="suscripcion-text">Suscripción </span>
                     </div>
-                    <p>{{remodelerData.subscription}}</p>
+                    <p>{{remodeler.subscription}}</p>
 
                 </div>
             </mat-card-content>

@@ -7,7 +7,7 @@ export class User {
     firstName: string
     paternalSurname: string
     maternalSurname: string
-
+    image: string
 
     constructor() {
         this.id = 0;
@@ -18,5 +18,6 @@ export class User {
         this.firstName = '';
         this.paternalSurname = '';
         this.maternalSurname = '';
+        this.image = '';
     }
 }

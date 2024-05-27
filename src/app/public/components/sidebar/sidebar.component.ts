@@ -35,7 +35,7 @@ export class SidebarComponent implements OnInit{
   }
 
   redirectToRemodelers(){
-    this.router.navigateByUrl('/remodelers');
+    this.router.navigateByUrl('/business');
   }
   redirectToComingSoon(){
     this.router.navigateByUrl('/coming-soon');
@@ -43,7 +43,7 @@ export class SidebarComponent implements OnInit{
   redirectToReviews(){
     if(this.type === 'remodeler'){
       alert('Solo los contratistas pueden acceder a esta sección');
-    }else if(this.type === 'contracter'){
+    }else if(this.type === 'contractor'){
       this.router.navigateByUrl('/reviews');
     }
   }
@@ -55,8 +55,8 @@ export class SidebarComponent implements OnInit{
   }
   redirectToProyects(){
     if(this.type === 'remodeler'){
-      this.router.navigate(['/home/remodeler/timeline']);
-    }else if(this.type === 'contracter'){
+      this.router.navigate(['/home/remodeler/tracking']);
+    }else if(this.type === 'contractor'){
       this.router.navigateByUrl('/coming-soon');
     }
   }

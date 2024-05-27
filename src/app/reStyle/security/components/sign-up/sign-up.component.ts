@@ -43,11 +43,11 @@ export class SignUpComponent {
   newUser: User = new User();
   users: User[] = [];
 
-  newRenodeler: Remodeler = new Remodeler();
+  newRemodeler: Remodeler = new Remodeler();
   remodelers: Remodeler[] = [];
 
-  newContracter: Contracter = new Contracter();
-  contracter: Contracter[] = [];
+  newContractor: Contracter = new Contracter();
+  contractors: Contracter[] = [];
 
   userData!: User;
 
@@ -55,8 +55,8 @@ export class SignUpComponent {
   isEditMode: boolean = false;
 
   types: string[] = [
-    "Contracter",
-    "Remodeler"
+    "contractor",
+    "remodeler"
   ]
 
 
@@ -80,7 +80,7 @@ export class SignUpComponent {
 
 
   getAllUsers() {
-    this.usersService.getAll().subscribe((data: any) => {
+    this.usersService.getUsers().subscribe((data: any) => {
       this.users = data;
       console.log(this.users);
     });
@@ -114,7 +114,74 @@ export class SignUpComponent {
     return this.registerForm.get('type');
   }
 
-  addUser() {
+  createUser() {
+    this.newUser = {
+      id: this.users.length + 1,
+      username: this.registerForm.value.firstName,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      type: this.registerForm.value.type,
+      firstName: this.registerForm.value.firstName,
+      paternalSurname: this.registerForm.value.paternalSurname,
+      maternalSurname: this.registerForm.value.maternalSurname,
+      image: "https://img.freepik.com/foto-gratis/cintura-arriba-retrato-hombre-guapo-afeitar-serio-mantiene-manos-juntas-vestido-camisa-azul-oscuro-ha-hablado-interlocutor-esta-parado-contra-pared-blanca-freelancer-hombre-seguro-si-mismo_273609-16320.jpg?t=st=1716787847~exp=1716791447~hmac=40efe191ceb8d2265eccb435fd9d7a32512a4fd4be65de25c015253f9869fac0&w=1380"
+    };
+
+    this.usersService.createUser(this.newUser).subscribe(
+        (response) => {
+          console.log('User created', response);
+
+          if (this.newUser.type === "contractor") {
+            this.newContractor = {
+              id: 0,
+              userId: this.newUser.id, // Usa el id retornado de la creación del usuario
+              phone: "123456789",
+              description: "Description"
+            };
+            this.contracterService.createContractor(this.newContractor).subscribe(
+                (response) => {
+                  console.log('Contractor created', response);
+                  this.onUserCreated();
+                },
+                (error) => {
+                  console.error('Error creating contractor', error);
+                }
+            );
+          } else if (this.newUser.type === "remodeler") {
+            this.newRemodeler = {
+              id: 0,
+              userId: this.newUser.id, // Usa el id retornado de la creación del usuario
+              phone: "123456789",
+              description: "Description",
+              subscription: "premium",
+              businessId: 5
+            };
+            this.remodelerService.createRemodeler(this.newRemodeler).subscribe(
+                (response) => {
+                  console.log('Remodeler created', response);
+                  this.onUserCreated();
+                },
+                (error) => {
+                  console.error('Error creating remodeler', error);
+                }
+            );
+          } else {
+            this.onUserCreated();
+          }
+        },
+        (error) => {
+          console.error('Error creating user', error);
+        }
+    );
+  }
+
+  onUserCreated() {
+    this.registerForm.reset();
+    alert("User created successfully");
+    this.router.navigate(['home/signIn']);
+  }
+
+  /*addUser() {
     //id: number
     //username: string
     //email: string
@@ -134,32 +201,27 @@ export class SignUpComponent {
 
     this.usersService.create(JSON.stringify(this.newUser)).subscribe(response => {
 
-      if (this.newUser.type == "Contracter") {
+      if (this.newUser.type == "contractor") {
 
         this.newContracter.id = 0;
 
-        this.newContracter.userID = Number(this.users.length + 1);
+        this.newContracter.userId = Number(this.users.length + 1);
 
-        this.newContracter.firstName = this.userData.firstName;
-        this.newContracter.lastName = this.userData.paternalSurname + " " + this.userData.maternalSurname;
-
-        this.newContracter.email = this.userData.email;
-        this.newContracter.photoUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+        //this.newContracter.firstName = this.userData.firstName;
+        //this.newContracter.lastName = this.userData.paternalSurname + " " + this.userData.maternalSurname;
+        //this.newContracter.email = this.userData.email;
 
         this.contracterService.create(JSON.stringify(this.newContracter)).subscribe();
-      } else if (this.newUser.type == "Remodeler") {
+      } else if (this.newUser.type == "remodeler") {
 
         this.newRenodeler.id = 0;
 
-        this.newRenodeler.userID = Number(this.users.length + 1);
+        this.newRenodeler.userId = Number(this.users.length + 1);
 
-        this.newRenodeler.firstName = this.userData.firstName;
-        this.newRenodeler.paternalSurname = this.userData.paternalSurname
-        this.newRenodeler.maternalSurname = this.userData.maternalSurname;
-        this.newRenodeler.location = "Lima";
-        this.newRenodeler.email = this.userData.email;
-        this.newRenodeler.rating = 0;
-        this.newRenodeler.photoUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+        //this.newRenodeler.firstName = this.userData.firstName;
+        //this.newRenodeler.paternalSurname = this.userData.paternalSurname
+        //this.newRenodeler.maternalSurname = this.userData.maternalSurname;
+        //this.newRenodeler.email = this.userData.email;
 
         this.remodelerService.create(JSON.stringify(this.newRenodeler)).subscribe();
       }
@@ -168,5 +230,5 @@ export class SignUpComponent {
 
       this.router.navigate(['login']);
     });
-  }
+  }*/
 }

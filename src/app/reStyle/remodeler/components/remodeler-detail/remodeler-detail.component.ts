@@ -16,6 +16,8 @@ import {RemodelerApiService} from "../../services/remodeler-api.service";
 import {Router} from "@angular/router";
 import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.component";
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
+import {ContracterService} from "../../../profiles/services/contracter.service";
+import {UserService} from "../../../security/services/user.service";
 
 @Component({
   selector: 'app-remodeler-detail',
@@ -44,19 +46,24 @@ import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.co
 })
 export class RemodelerDetailComponent implements OnInit{
   data: any = {};
-  remodeler: any = {};
-  proyectRequestForm: FormGroup;
+  business: any = {};
+  projects: any = [];
+  reviews: any = [];
+  contractors: any = [];
+  users: any = [];
+  projectRequestForm: FormGroup;
   remodelerId: any | undefined;
-  clientId: any | undefined;
+  contractorId: any | undefined;
 
-  constructor(private remodelerApiService: RemodelerApiService, private router: Router, private fb: FormBuilder) {
-      this.proyectRequestForm = this.fb.group({
+  constructor(private remodelerApiService: RemodelerApiService, private contractorService: ContracterService,
+              private userService: UserService, private router: Router, private fb: FormBuilder) {
+      this.projectRequestForm = this.fb.group({
             name: ['', Validators.required],
             surname: ['', Validators.required],
             phone: ['', Validators.required],
             address: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
-            date: ['', Validators.required],
+            deadlineDate: ['', Validators.required],
             city: ['', Validators.required],
             budget: ['', Validators.required],
             rooms: ['', Validators.required],
@@ -65,31 +72,79 @@ export class RemodelerDetailComponent implements OnInit{
   }
   ngOnInit(){
     let id = this.router.url.split('/')[2];
-    this.getRemodelerById(id);
+    this.getResourceById(id);
     this.remodelerId = id;
-    this.clientId = sessionStorage.getItem("userId");
+    this.contractorId = sessionStorage.getItem("userId");
   }
 
-  getRemodelerById(id: any):void{
-    this.remodelerApiService.getRemodelerById(id).subscribe((data:any)=>{
-        this.remodeler = data;
+  getResourceById(id: any):void{
+    this.remodelerApiService.getBusinessById(id).subscribe((data:any)=>{
+        this.business = data;
       },
       (error:any)=>{
         console.log(error);
       });
+    this.remodelerApiService.getProjects().subscribe((data:any)=>{
+        this.projects = data;
+      },
+        (error:any)=>{
+          console.log(error);
+    });
+    this.remodelerApiService.getReviews().subscribe((data:any)=>{
+        this.reviews = data;
+      },
+        (error:any)=>{
+          console.log(error);
+    });
+    this.contractorService.getContractors().subscribe((data:any)=>{
+        this.contractors = data;
+      },
+        (error:any)=> {
+            console.log(error);
+    });
+    this.userService.getUsers().subscribe((data:any)=>{
+        this.users = data;
+      },
+        (error:any)=>{
+          console.log(error);
+    });
   }
 
-    onSubmit() {
-        if (this.proyectRequestForm.valid) {
-            const formData = {
-                ...this.proyectRequestForm.value,
-                remodelerId: this.remodelerId,
-                clientId: this.clientId
+    getProjectsByBusinessId(businessId: number): any[] {
+        return this.projects.filter((project: { businessId: any; }) => Number(project.businessId) === businessId);
+    }
+
+    getReviewsByBusinessId(businessId: number): any[] {
+        const projects = this.getProjectsByBusinessId(businessId);
+        const projectIds = projects.map(project => project.id);
+        const filteredReviews = this.reviews.filter((review: { projectId: number; }) => projectIds.includes(review.projectId));
+        const contractors = this.contractors;
+        const users = this.users;
+
+        return filteredReviews.map((review: { projectId: any; contractorId: any; }) => {
+            const project = projects.find(project => project.id === review.projectId);
+            const contractor = contractors.find((contractor: { id: any; }) => contractor.id === review.contractorId);
+            const user = users.find((user: { id: any; }) => user.id === contractor?.userId);
+            const contractorName = user ? `${user.firstName} ${user.paternalSurname} ${user.maternalSurname}` : 'Unknown Contractor';
+            return {
+                ...review,
+                projectName: project?.name || 'Unknown Project',
+                contractorName: contractorName,
             };
-            this.remodelerApiService.createProyectRequest(formData).subscribe(
+        });
+    }
+
+    onSubmit() {
+        if (this.projectRequestForm.valid) {
+            const formData = {
+                ...this.projectRequestForm.value,
+                remodelerId: this.remodelerId,
+                contractorId: this.contractorId
+            };
+            this.remodelerApiService.createProjectRequest(formData).subscribe(
                 (data: any) => {
                     alert('Project request created');
-                    this.router.navigate(['/remodelers']);
+                    this.router.navigate(['/business']);
                 },
                 (error: any) => {
                     console.log(error);

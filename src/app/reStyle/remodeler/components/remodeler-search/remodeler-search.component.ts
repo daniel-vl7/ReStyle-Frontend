@@ -39,7 +39,8 @@ import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.co
 })
 export class RemodelerSearchComponent implements OnInit{
 
-  remodelers: Remodeler[] = [];
+  business: Remodeler[] = [];
+  projects: any[] = [];
   searchTerm: string = '';
 
   @ViewChild(MatPaginator, {static:true}) paginator!: MatPaginator;
@@ -47,12 +48,12 @@ export class RemodelerSearchComponent implements OnInit{
   constructor(private remodelerApiService: RemodelerApiService, private router: Router) {
   }
   ngOnInit(){
-    this.getRemodelers();
+    this.getResources();
   }
 
-  getRemodelers():void{
-    this.remodelerApiService.getRemodelers().subscribe((data: any)=>{
-        this.remodelers = data.map((item: any) => ({
+  getResources():void{
+    this.remodelerApiService.getBusiness().subscribe((data: any)=>{
+        this.business = data.map((item: any) => ({
           id: item.id,
           name: item.name,
           image: item.image,
@@ -60,24 +61,32 @@ export class RemodelerSearchComponent implements OnInit{
           address: item.address,
           city: item.city,
           description: item.description,
-          portfolio: item.portfolio,
-          reviews: item.reviews
+          remodelerId: item.remodelerId
         }));
       },
       (error:any)=>{
         console.log(error);
       });
+    this.remodelerApiService.getProjects().subscribe((data: any)=>{
+        this.projects = data;
+      },(error:any)=>{
+        console.log(error);
+      });
+  }
+
+  getProjectsByBusinessId(businessId: number): any[] {
+    return this.projects.filter(project => Number(project.businessId) === businessId);
   }
 
   redirectToComponent(id: number) {
-    this.router.navigateByUrl(`/remodelers/${id}`);
+    this.router.navigateByUrl(`/business/${id}`);
   }
 
   applyFilter(filter: string) {
     if(filter === "Lima"){
-      this.remodelerApiService.getRemodelers().subscribe(
+      this.remodelerApiService.getBusiness().subscribe(
         (data: any) => {
-          this.remodelers = data.filter((remodeler: any) => remodeler.city === filter).map((item: any) => ({
+          this.business = data.filter((remodeler: any) => remodeler.city === filter).map((item: any) => ({
             id: item.id,
             name: item.name,
             image: item.image,
@@ -85,8 +94,7 @@ export class RemodelerSearchComponent implements OnInit{
             address: item.address,
             city: item.city,
             description: item.description,
-            portfolio: item.portfolio,
-            reviews: item.reviews
+            remodelerId: item.remodelerId
           }));
         },
         (error: any) => {
@@ -94,9 +102,9 @@ export class RemodelerSearchComponent implements OnInit{
         }
       );
     }else if(filter === "Provincia"){
-      this.remodelerApiService.getRemodelers().subscribe(
+      this.remodelerApiService.getBusiness().subscribe(
         (data: any) => {
-          this.remodelers = data.filter((remodeler: any) => remodeler.city !== 'Lima').map((item: any) => ({
+          this.business = data.filter((remodeler: any) => remodeler.city !== 'Lima').map((item: any) => ({
             id: item.id,
             name: item.name,
             image: item.image,
@@ -104,8 +112,7 @@ export class RemodelerSearchComponent implements OnInit{
             address: item.address,
             city: item.city,
             description: item.description,
-            portfolio: item.portfolio,
-            reviews: item.reviews
+            remodelerId: item.remodelerId
           }));
         },
         (error: any) => {
@@ -113,14 +120,14 @@ export class RemodelerSearchComponent implements OnInit{
         }
       );
     }else if(filter === "Todos"){
-      this.getRemodelers();
+      this.getResources();
     }
   }
   applySearchFilter(input: string): void {
     this.searchTerm = input;
-    this.remodelerApiService.getRemodelers().subscribe(
+    this.remodelerApiService.getBusiness().subscribe(
       (data: any) => {
-        this.remodelers = data.filter((remodeler: any) =>
+        this.business = data.filter((remodeler: any) =>
           remodeler.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
           remodeler.city.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
           remodeler.expertise.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -132,8 +139,7 @@ export class RemodelerSearchComponent implements OnInit{
           address: item.address,
           city: item.city,
           description: item.description,
-          portfolio: item.portfolio,
-          reviews: item.reviews
+          remodelerId: item.remodelerId
         }));
       },
       (error: any) => {
@@ -144,6 +150,6 @@ export class RemodelerSearchComponent implements OnInit{
 
   clearFilter(){
     this.searchTerm = '';
-    this.getRemodelers();
+    this.getResources();
   }
 }

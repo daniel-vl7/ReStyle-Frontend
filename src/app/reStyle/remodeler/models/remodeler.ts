@@ -6,6 +6,5 @@ export interface Remodeler {
   address: any,
   city: any,
   description: any,
-  portfolio: any,
-  reviews: any
+  remodelerId: any
 }

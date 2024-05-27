@@ -59,12 +59,9 @@ export class SignInComponent {
     return this.loginForm.get('password')
   }
 
-
-
   getAllResources(){
-    this.usersService.getAll().subscribe((response: any)=>{
+    this.usersService.getUsers().subscribe((response: any)=>{
       this.users = response;
-      console.log(this.users)
     })
   }
 
@@ -72,7 +69,7 @@ export class SignInComponent {
 
     this.getAllResources();
 
-    this.usersService.getAll().subscribe((response: any)=>{
+    this.usersService.getUsers().subscribe((response: any)=>{
 
       const user = response.find((a: any)=> {
         this.currentUser = a;
@@ -86,10 +83,10 @@ export class SignInComponent {
         sessionStorage.setItem("userId", this.currentUser.id.toString());
 
         this.loginForm.reset();
-        if (this.currentUser.type == "Remodeler") {
+        if (this.currentUser.type == "remodeler") {
 
           console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
-          this.usersService.getItemByField("userId", Number(sessionStorage.getItem("userId"))).subscribe((response: any) => {
+          this.usersService.getUserByField("userId", Number(sessionStorage.getItem("userId"))).subscribe((response: any) => {
             sessionStorage.setItem("typeId", response.id.toString());
           });
           sessionStorage.setItem("userType", "remodeler");
@@ -97,11 +94,11 @@ export class SignInComponent {
           console.log(sessionStorage.getItem("name"))
           this.router.navigate([`home/profile/remodeler/${this.currentUser.id}`]).then((r: any) => console.log(r));
         }
-        else if (this.currentUser.type == "Contracter"){
+        else if (this.currentUser.type == "contractor"){
 
           console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
-          sessionStorage.setItem("userType", "contracter");
-          this.router.navigate([`home/profile/contracter/${this.currentUser.id}`]).then((r: any) => console.log(r));
+          sessionStorage.setItem("userType", "contractor");
+          this.router.navigate([`home/profile/contractor/${this.currentUser.id}`]).then((r: any) => console.log(r));
         } else{
           console.log("Usuario o contraseña incorrectos")
         }

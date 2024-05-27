@@ -70,7 +70,7 @@ export class TrackingDetailComponent implements OnInit{
   }
 
   getRemodelerById(id: any):void{
-    this.remodelerApiService.getRemodelerById(id).subscribe((data:any)=>{
+    this.remodelerApiService.getBusinessById(id).subscribe((data:any)=>{
           this.remodeler = data;
         },
         (error:any)=>{
@@ -90,7 +90,7 @@ export class TrackingDetailComponent implements OnInit{
   }
 
   getProyectRequestsById(id: any):void{
-    this.remodelerApiService.getProyectRequestsById(id).subscribe((data:any)=>{
+    this.remodelerApiService.getProjectRequestsById(id).subscribe((data:any)=>{
           this.project = data;
           this.getTrackingById(data.id);
         },

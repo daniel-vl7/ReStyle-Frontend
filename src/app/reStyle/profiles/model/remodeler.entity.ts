@@ -1,23 +1,17 @@
 export class Remodeler {
-    userID: number;
+    userId: number;
     id: number;
-    firstName: string;
-    paternalSurname: string;
-    maternalSurname:  string;
-    email : string;
-    phone : string;
-    description : string;
-    subscription  : string;
+    phone: string;
+    description: string;
+    subscription: string;
+    businessId: number;
 
     constructor() {
-        this.userID = 0;
+        this.userId = 0;
         this.id = 0;
-        this.firstName = '';
-        this.paternalSurname = '';
-        this.maternalSurname = '';
-        this.email = '';
         this.phone = '';
         this.description = '';
         this.subscription = '';
+        this.businessId = 0;
     }
 }

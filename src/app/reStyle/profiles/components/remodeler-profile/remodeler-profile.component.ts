@@ -7,7 +7,10 @@ import {Contracter} from "../../model/contracter.entity";
 import {ContracterService} from "../../services/contracter.service";
 import {ViewRenovationsService} from "../../services/view.renovations.service";
 import {RemodelerService} from "../../services/remodeler.service";
+import {UserService} from "../../../security/services/user.service";
 import {Remodeler} from "../../model/remodeler.entity";
+import {User} from "../../../security/model/user.entity";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-remodeler-profile',
@@ -20,7 +23,8 @@ import {Remodeler} from "../../model/remodeler.entity";
         MatCardTitle,
         MatIcon,
         SidebarComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        NgForOf
     ],
   templateUrl: './remodeler-profile.component.html',
   styleUrl: './remodeler-profile.component.css'
@@ -28,18 +32,26 @@ import {Remodeler} from "../../model/remodeler.entity";
 export class RemodelerProfileComponent implements OnInit{
     userID: any;
 
+    userData: User = new User()
     remodelerData: Remodeler = new Remodeler()
+    remodelers: Remodeler[] = []
 
-    constructor(private remodelerService: RemodelerService) {
+    constructor(private remodelerService: RemodelerService, private userService: UserService) {
         this.userID = sessionStorage.getItem('userId');
     }
 
     getResource() {
-        this.remodelerService.getItemById(this.userID).subscribe((response: any)=>{
-            this.remodelerData = response;
+        this.userService.getUserById(this.userID).subscribe((response: any) => {
+            this.userData = response;
+            console.log(this.userData)
+        }, (error) => {
+            console.error('Error al leer usuario', error);
+        });
+        this.remodelerService.getRemodelerByUserId(this.userID).subscribe((response: any)=>{
+            this.remodelers = response;
             console.log(this.remodelerData)
         },(error) => {
-            console.error('Error al leer usuario', error);
+            console.error('Error al leer remodelador', error);
         })
     }
 
