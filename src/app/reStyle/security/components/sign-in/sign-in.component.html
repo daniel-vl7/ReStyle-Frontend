@@ -1,0 +1,44 @@
+<app-toolbar-home></app-toolbar-home>
+
+
+<section id="loginContainer" class="login-container">
+
+    <div class="login-section">
+        <div class="login-form-container" >
+
+            <div class="login-logo">
+                <img src="assets/images/logo-ReStyle.svg" alt="ReStyle logo" class="logo-image">
+                <span class="logo-text">ReStyle</span>
+            </div>
+
+            <span class="login-form-title">Login</span>
+            <p>Log in with your data that you entered during your registration</p>
+
+
+            <form [formGroup]="loginForm" (submit)="submitForm()" class="login-form">
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>E-mail</mat-label>
+                    <input type="text" matInput formControlName="email">
+                    <mat-error *ngIf="email?.errors?.['required']">Email is <strong>required</strong></mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password">
+                    <mat-error *ngIf="password?.errors?.['required']">Password is <strong>required</strong></mat-error>
+                </mat-form-field>
+
+                <button [disabled]="!loginForm.valid" mat-raised-button color="primary" type="submit" class="login-button">Get into</button>
+
+                <a routerLink="/change" href="#" id="forgotPassword"><strong>I forgot my password</strong></a>
+
+                <p id="signUp">You do not have an account?<a routerLink="/home/signUp" href="#"><strong> Sign-Up</strong></a></p>
+            </form>
+
+        </div>
+    </div>
+</section>
+
+
+
+

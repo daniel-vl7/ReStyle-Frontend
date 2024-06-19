@@ -1,0 +1,76 @@
+#create-project-container{
+    margin-top: 1.5rem;
+    margin-left: 21rem;
+    margin-right: 3rem;
+    font-family: "Montserrat", sans-serif;
+}
+#create-project-container .review-form{
+    background-color: #dedeff;
+    font-family: "Montserrat", sans-serif;
+}
+#create-project-container .information-review-container{
+    display: flex;
+    flex-direction: row;
+}
+#create-project-container .review-header-container{
+    display: flex;
+    justify-content: left;
+}
+.project-title{
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3F51B5;
+}
+#create-project-container #editForm{
+    display: flex;
+    justify-content: center;
+}
+.fileInput {
+    position: absolute;
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+}
+.project-form{
+    background-color: #dedeff;
+    padding-left: 1rem;
+    width: 50%;
+    padding-right: 1rem;
+}
+.send-button{
+    display: flex;
+    justify-content: right;
+}
+#create-project-container .send-btn{
+    width: 6rem;
+    background-color: #3F51B5;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    margin-bottom: 1.5rem;
+    height: 3rem;
+}
+.advice-container{
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.advice-paragraph{
+    width: 300px;
+    opacity: 70%;
+}
+.checked{
+    color:yellow;
+}
+#create-project-container mat-icon{
+    cursor: pointer;
+}
+@media (hover){
+    .send-btn:hover{
+        transition: 0.4s ease;
+        background-color: #003F8F;
+    }
+}
