@@ -34,18 +34,18 @@
                     </form>
                     <p> Título <br>
                         <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Texto</mat-label>
-                            <input matInput placeholder="">
+                            <mat-label>Escribe el título del proyecto</mat-label>
+                            <input matInput placeholder=""  required >
                         </mat-form-field>
                     </p>
                     <p> Descripción <br>
                         <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Texto</mat-label>
-                            <textarea matInput placeholder=""></textarea>
+                            <mat-label>Agregue una breve descripción del proyecto</mat-label>
+                            <textarea matInput placeholder=""  required></textarea>
                         </mat-form-field>
                     </p>
                     <div class="send-button">
-                        <button class ="send-btn" (click)="addProject()" mat-flat-button>Save</button>
+                        <button class ="send-btn" (click)="addProject()" mat-flat-button>Guardar</button>
                     </div>
                 </div>
                 <div class="advice-container">

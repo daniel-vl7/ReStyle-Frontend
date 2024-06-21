@@ -9,6 +9,7 @@ import {MatButton} from "@angular/material/button";
 import {UserService} from "../../services/user.service";
 import {MatTableModule} from "@angular/material/table";
 import {User} from "../../model/user.entity";
+import {SnackbarService} from "../../../../shared/services/snackbar.service";
 
 
 @Component({
@@ -30,9 +31,15 @@ import {User} from "../../model/user.entity";
   styleUrl: './sign-in.component.css'
 })
 export class SignInComponent {
+
+  //boleano de contraseña incorrecta
+    incorrectPassword: boolean = false;
+  //boleano de email incorrecto
+    incorrectEmail: boolean = false;
+
   loginForm: FormGroup = this.formBuilder.group({
     email: ['gonzalo@restyle.com', { validators: [Validators.required, Validators.email], updateOn: 'change'}],
-    password: ['', {validators: [Validators.required ], updateOn: 'change'}]
+    password: ['', {validators: [Validators.required], updateOn: 'change'}]
   })
 
   logged: boolean =false;
@@ -40,15 +47,30 @@ export class SignInComponent {
 
   users: User[] = [];
 
-  constructor(private formBuilder: FormBuilder, private usersService: UserService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private usersService: UserService,
+              private router: Router, private snackbarService: SnackbarService) {
+
 
   }
+
+  showSuccessMessage(messageContent: string) {
+    const successImage='assets/images/success.png'
+    this.snackbarService.showSuccess1(messageContent, successImage);
+  }
+
+  showErrorMessage(messageContent: string) {
+    const errorImage='assets/images/error.png'
+    this.snackbarService.showError1(messageContent, errorImage);
+  }
+
 
   ngOnInit(): void {
+    this.getAllResources();
   }
 
+
   submitted() {
-    this.logged=true;
+    return this.loginForm.invalid;
   }
 
   get email(){
@@ -65,45 +87,59 @@ export class SignInComponent {
     })
   }
 
-  submitForm(){
 
-    this.getAllResources();
+  //Funcion para verificar la autenticacion del usuario
+  authenticateUser(): boolean{
 
-    this.usersService.getUsers().subscribe((response: any)=>{
+    let authenticated: boolean = false;
 
-      const user = response.find((a: any)=> {
-        this.currentUser = a;
-        return a.email === this.loginForm.value.email && a.password === this.loginForm.value.password
-      });
-
-      if(user) {
-        //Imprime en consola el usuario que se logueo
-        console.log(user)
-        //Guarda el usuario en el sessionStorage
-        sessionStorage.setItem("userId", this.currentUser.id.toString());
-
-        this.loginForm.reset();
-        if (this.currentUser.type == "remodeler") {
-
-          console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
-          this.usersService.getUserByField("userId", Number(sessionStorage.getItem("userId"))).subscribe((response: any) => {
-            sessionStorage.setItem("typeId", response.id.toString());
-          });
-          sessionStorage.setItem("userType", "remodeler");
-          sessionStorage.setItem("name", this.currentUser.firstName.toString() + " " + this.currentUser.paternalSurname.toString());
-          console.log(sessionStorage.getItem("name"))
-          this.router.navigate([`home/profile/remodeler/${this.currentUser.id}`]).then((r: any) => console.log(r));
-        }
-        else if (this.currentUser.type == "contractor"){
-
-          console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
-          sessionStorage.setItem("userType", "contractor");
-          this.router.navigate([`home/profile/contractor/${this.currentUser.id}`]).then((r: any) => console.log(r));
-        } else{
-          console.log("Usuario o contraseña incorrectos")
-        }
-        sessionStorage.setItem("userId", this.currentUser.id.toString());
+    this.users.forEach((user: any) => {
+      if(user.email === this.loginForm.value.email && user.password === this.loginForm.value.password){
+        authenticated = true;
+        this.currentUser = user;
       }
-    })
+    });
+
+    //Si no esta autenticado muestra un mensaje de error
+    if(!authenticated){
+      this.showErrorMessage("Usuario o contraseña incorrectos")
+      return false;
+    }
+
+    //Guarda el usuario en el sessionStorage
+    sessionStorage.setItem("userId", this.currentUser.id.toString());
+
+    return authenticated;
+  }
+
+  submitForm() {
+
+    //Verifica si el usuario esta autenticado
+    if (this.authenticateUser()) {
+
+      //Muestra un mensaje de bienvenida
+        this.showSuccessMessage("Inicio de sesión exitoso. " +"Bienvenido " + this.currentUser.firstName)
+
+      this.loginForm.reset();
+
+      if (this.currentUser.type === "remodeler") {
+
+        console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
+
+        this.usersService.getUserByField("userId", Number(sessionStorage.getItem("userId"))).subscribe((response: any) => {
+          sessionStorage.setItem("typeId", response.id.toString());
+        });
+        sessionStorage.setItem("userType", "remodeler");
+        sessionStorage.setItem("name", this.currentUser.firstName.toString() + " " + this.currentUser.paternalSurname.toString());
+        console.log(sessionStorage.getItem("name"))
+        this.router.navigate([`home/profile/remodeler/${this.currentUser.id}`]).then((r: any) => console.log(r));
+      } else if (this.currentUser.type == "contractor") {
+
+        console.log("Usuario logueado: " + this.currentUser.type + " " + this.currentUser.id);
+        sessionStorage.setItem("userType", "contractor");
+        this.router.navigate([`home/profile/contractor/${this.currentUser.id}`]).then((r: any) => console.log(r));
+      }
+      sessionStorage.setItem("userId", this.currentUser.id.toString());
+    }
   }
 }

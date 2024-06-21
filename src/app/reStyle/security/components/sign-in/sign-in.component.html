@@ -1,6 +1,5 @@
 <app-toolbar-home></app-toolbar-home>
 
-
 <section id="loginContainer" class="login-container">
 
     <div class="login-section">
@@ -20,6 +19,8 @@
                     <mat-label>E-mail</mat-label>
                     <input type="text" matInput formControlName="email">
                     <mat-error *ngIf="email?.errors?.['required']">Email is <strong>required</strong></mat-error>
+                    <!--El email debe ser válido-->
+                    <mat-error *ngIf="email?.errors?.['email']">Email must be a <strong>valid email</strong></mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="full-width">
@@ -29,6 +30,7 @@
                 </mat-form-field>
 
                 <button [disabled]="!loginForm.valid" mat-raised-button color="primary" type="submit" class="login-button">Get into</button>
+
 
                 <a routerLink="/change" href="#" id="forgotPassword"><strong>I forgot my password</strong></a>
 

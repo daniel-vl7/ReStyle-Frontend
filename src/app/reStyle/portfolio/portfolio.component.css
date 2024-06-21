@@ -1,21 +1,11 @@
+
 #create-project-container{
     margin-top: 1.5rem;
     margin-left: 21rem;
     margin-right: 3rem;
     font-family: "Montserrat", sans-serif;
 }
-#create-project-container .review-form{
-    background-color: #dedeff;
-    font-family: "Montserrat", sans-serif;
-}
-#create-project-container .information-review-container{
-    display: flex;
-    flex-direction: row;
-}
-#create-project-container .review-header-container{
-    display: flex;
-    justify-content: left;
-}
+
 .project-title{
     font-size: 2rem;
     font-weight: bold;
@@ -35,11 +25,16 @@
     top: 0;
     cursor: pointer;
 }
-.project-form{
+
+.information-project-container{
     background-color: #dedeff;
-    padding-left: 1rem;
     width: 50%;
-    padding-right: 1rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.project-form{
+   padding: 2rem;
 }
 .send-button{
     display: flex;

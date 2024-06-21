@@ -6,11 +6,12 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
-import {FormsModule, UntypedFormBuilder} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, UntypedFormBuilder, Validators} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {PortfolioSnackComponent} from "../portfolio-snack/portfolio-snack.component";
+import {SnackbarService} from "../../shared/services/snackbar.service";
 
 @Component({
   selector: 'app-portfolio',
@@ -31,7 +32,7 @@ import {PortfolioSnackComponent} from "../portfolio-snack/portfolio-snack.compon
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.css'
 })
-export class PortfolioComponent implements OnInit{
+export class PortfolioComponent implements OnInit {
 
   @Input() maxRating = 5;
   maxRatingArray:any =[];
@@ -39,22 +40,16 @@ export class PortfolioComponent implements OnInit{
   @Input() SelectedStar = 0;
   previousSelection = 0;
 
-  constructor(private fb: UntypedFormBuilder,  private _snackBar: MatSnackBar) {}
+  constructor(private fb: UntypedFormBuilder,  private snackbarService: SnackbarService) {}
 
-  HandleMouseEnter(index: number): void {
-    this.SelectedStar = index+1;
+  showSuccessMessage(messageContent: string) {
+    const successImage='assets/images/success.png'
+    this.snackbarService.showSuccess1(messageContent, successImage);
   }
-  HandleMouseLeave(): void {
-    if (this.previousSelection !== 0) {
-      this.SelectedStar = this.previousSelection;
-    }
-    else{
-      this.SelectedStar = 0;
-    }
-  }
-  Rating(index: number): void {
-    this.SelectedStar = index+1;
-    this.previousSelection = this.SelectedStar;
+
+  showErrorMessage(messageContent: string) {
+    const errorImage='assets/images/error.png'
+    this.snackbarService.showError1(messageContent, errorImage);
   }
 
   editForm = this.fb.group({
@@ -62,12 +57,13 @@ export class PortfolioComponent implements OnInit{
   });
 
   addProject(): void {
-    this._snackBar.openFromComponent(PortfolioSnackComponent, {
-      duration:3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    })
+    if (this.editForm.valid) {
+      this.showSuccessMessage('El proyecto ah sido agregado de manera exitosa');
+    }else if (!this.editForm.valid) {
+      this.showErrorMessage('Error al agregar el proyecto');
+    }
   }
+
   setFileData(event: Event): void {
     const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
     if (eventTarget?.files?.[0]) {
@@ -83,4 +79,5 @@ export class PortfolioComponent implements OnInit{
   ngOnInit(): void {
     this.maxRatingArray = Array(this.maxRating).fill(0);
   }
+
 }

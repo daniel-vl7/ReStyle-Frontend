@@ -71,3 +71,40 @@ img {
     width: 720px;
     max-width: 100%;
 }
+
+/*Reaccion de button button-sign-in*/
+.button-sign-in:hover{
+    background-color: #1d32b0;
+    color: #FFFFFF;
+}
+
+/*Reaccion de button button-sign-up*/
+.button-sign-up:hover{
+    background-color: #b2bdf3;
+    color: #e5edf6;
+}
+
+
+
+
+/** Responsive **/
+
+@media (max-width: 768px) {
+    .container-content{
+        margin-top: 50px;
+    }
+
+    .row h1{
+        font-size: 2.5rem;
+    }
+
+    .row p{
+        font-size: 1.2em;
+    }
+
+    button{
+        font-size: 1.2em;
+    }
+}
+
+
