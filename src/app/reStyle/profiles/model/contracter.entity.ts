@@ -1,13 +1,15 @@
 export class Contracter {
-    userId: number;
     id: number;
+    userId: number;
     phone: string;
     description: string;
+    image: string;
 
-    constructor() {
-        this.userId = 0;
-        this.id = 0;
-        this.phone = '';
-        this.description = '';
+    constructor(userId: number, id: number, phone: string, description: string, image: string) {
+        this.userId = userId;
+        this.id = id;
+        this.phone = phone;
+        this.description = description;
+        this.image = image;
     }
 }

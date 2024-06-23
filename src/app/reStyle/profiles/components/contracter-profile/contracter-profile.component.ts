@@ -2,26 +2,27 @@ import {Component, OnInit} from '@angular/core';
 import {Contracter} from "../../model/contracter.entity";
 import {ContracterService} from "../../services/contracter.service";
 import {MatButton} from "@angular/material/button";
+import {MatDialog} from "@angular/material/dialog";
 import {
-  MatCard,
-  MatCardContent,
-  MatCardHeader,
-  MatCardImage,
-  MatCardSubtitle,
-  MatCardTitle
+    MatCard, MatCardActions,
+    MatCardContent,
+    MatCardHeader,
+    MatCardImage,
+    MatCardSubtitle,
+    MatCardTitle,
 } from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {NgForOf} from "@angular/common";
-import{UserService} from "../../../security/services/user.service";
+import {UserService} from "../../../security/services/user.service";
 import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.component";
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
-import {User} from "../../../security/model/user.entity";
 import {RemodelerApiService} from "../../../remodeler/services/remodeler-api.service";
 import {ContractorSidebarComponent} from "../../../../public/components/sidebarcontractor/sidebar.component";
+import {DialogAnimationsExampleDialog} from "../edit-profile-dialog/edit-profile-dialog.component";
 
 @Component({
-  selector: 'app-contracter-profile',
-  standalone: true,
+    selector: 'app-contracter-profile',
+    standalone: true,
     imports: [
         MatButton,
         MatCardContent,
@@ -29,50 +30,84 @@ import {ContractorSidebarComponent} from "../../../../public/components/sidebarc
         MatCardTitle,
         MatCardHeader,
         MatCard,
+        MatDialog,
         MatIcon,
         NgForOf,
         MatCardImage,
         SidebarComponent,
         ToolbarComponent,
         ContractorSidebarComponent,
+        MatCardActions,
     ],
-  templateUrl: './contracter-profile.component.html',
-  styleUrl: './contracter-profile.component.css'
+    templateUrl: './contracter-profile.component.html',
+    styleUrls: ['./contracter-profile.component.css']
 })
-export class ContracterProfileComponent implements OnInit{
+export class ContracterProfileComponent implements OnInit {
+    userId: any;
+    userData: any = {};
+    remodeler: any = {};
+    reviews: any[] = [];
+    contracter: Contracter | null = null;
 
-  userID: any;
-  profile: any = {};
-  contractor: any = {};
+    constructor(
+        private contracterService: ContracterService,
+        private remodelerApiService: RemodelerApiService,
+        private userService: UserService,
+        public dialog: MatDialog
+    ) {}
 
-  userData : any = {};
-  remodeler: any = {};
-  reviews: any[] = [];
-  contracterData: Contracter = new Contracter()
+    getResource() {
+        if (this.userId) {
+            this.userService.getUserById(this.userId).subscribe(
+                (response: any) => {
+                    this.userData = response;
+                },
+                (error) => {
+                    console.error('Error al leer usuario', error);
+                }
+            );
 
-  constructor(private contracterService: ContracterService,  private remodelerApiService: RemodelerApiService, private userService: UserService) {
-    this.userID = sessionStorage.getItem('signInId');
-  }
+            this.remodelerApiService.getReviewByContractorId(this.userId).subscribe(
+                (response: any) => {
+                    this.reviews = response;
+                },
+                (error) => {
+                    console.error('Error al leer review', error);
+                }
+            );
+        }
+    }
+    openEditDialog(): void {
+        const dialogRef = this.dialog.open(DialogAnimationsExampleDialog, {
+            width: '400px',
+            data: { ...this.userData }
+        });
 
-  getResource() {
-    this.userService.getUserById(this.userID).subscribe((response: any) => {
-      this.profile = response;
-    }, (error) => {
-      console.error('Error al leer usuario', error);
-    });
-    // this.userService.getContractorById(this.userID).subscribe((response: any)=>{
-    //   this.contractor = response;
-    // },(error) => {
-    //   console.error('Error al leer contratista', error);
-    // });
-    this.remodelerApiService.getReviewByContractorId(this.userID).subscribe((response: any) => {
-      this.reviews = response;
-    }, (error) => {
-      console.error('Error al leer review', error);
-    });
-  }
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
 
-  ngOnInit(): void {
-    this.getResource();
-  }
+    transformRole(role: any): string {
+        if(role[0] == 'ROLE_CONTRACTOR'){
+            return 'Contractor';
+        } else if(role[0] == 'ROLE_REMODELER') {
+            return 'Remodeler';
+        }
+        return '';
+    }
+    ngOnInit(): void {
+        this.userId = sessionStorage.getItem('signInId');
+        if (this.userId) {
+            this.contracter = new Contracter(
+                this.userId,
+                this.userId + 10,
+                '999 999 999',
+                'This is my description',
+                'https://ps.w.org/user-avatar-reloaded/assets/icon-256x256.png?rev=2540745'
+            );
+            this.getResource();
+        } else {
+            console.error('No se pudo obtener el userId del sessionStorage');
+        }
+    }
 }

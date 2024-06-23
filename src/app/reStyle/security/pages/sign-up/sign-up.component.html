@@ -23,6 +23,15 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Role</mat-label>
+                    <mat-select id="roleSelected" name="roleSelected" required formControlName="roleSelected">
+                        <mat-option value="contractor">Contractor</mat-option>
+                        <mat-option value="remodeler">Remodeler</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="isInvalidControl(form, 'roleSelected')">{{errorMessagesForControl(form, 'roleSelected')}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width">
                     <input matInput placeholder="Email" id="email" name="email" required formControlName="email">
                     <mat-error *ngIf="isInvalidControl(form, 'email')">{{errorMessagesForControl(form, 'email')}}</mat-error>
                 </mat-form-field>

@@ -3,21 +3,22 @@
 
 <div class="profile-section">
     <div class="profile-container">
-        <mat-card class="card">
+        <mat-card class="card" style="width: 1000px">
 
             <mat-card-header class="title-profile">
-                <mat-card-title style="color: #3F51B5;"> {{profile.username}}</mat-card-title>
-                <mat-card-subtitle> Contratista </mat-card-subtitle>
+                <mat-card-title style="color: #3F51B5;"> {{userData.username}}</mat-card-title>
+
+                <mat-card-subtitle>  {{transformRole(userData.roles)}} </mat-card-subtitle>
             </mat-card-header>
 
             <mat-card-content class="information-profile">
 
                 <div class="photo-profile">
-                    <img src="assets/images/profile-temporal.webp" alt="photo" class="photo">
+                    <img src="{{userData.image}}" alt="photo" class="photo">
                 </div>
 
                 <div class="description-profile">
-                    <p>{{contractor.description}}</p>
+                    <p>{{userData.description}}</p>
                 </div>
 
                 <div class="contact-information">
@@ -26,16 +27,19 @@
                         <mat-icon class="icons">email</mat-icon>
                         <span class="correo-text">Correo</span>
                     </div>
-                    <p>{{profile.email}}</p>
+                    <p>{{userData.email}}</p>
 
                     <div class="information">
                         <mat-icon class="icons">perm_contact_calendar</mat-icon>
                         <span class="contacto-text">Contacto</span>
                     </div>
-                    <p>{{contractor.phone}}</p>
+                    <p>{{userData.phone}}</p>
 
                 </div>
             </mat-card-content>
+            <mat-card-actions class="actions" >
+                <button mat-raised-button color="primary" class="sign-up-button" (click)="openEditDialog()">Edit</button>
+            </mat-card-actions>
         </mat-card>
 
         <div class="remodeler-reviews">
@@ -47,7 +51,7 @@
                     </mat-card-header>
                     <mat-card-content class="review-content">
                         <p style="color: #3F51B5; font-size: 1rem; font-weight: bold;">{{review.project}}</p>
-                        <mat-icon class="review-icon">person</mat-icon> <p style="display: inline-block;">Client: </p> <p style="display: inline-block; color: #757DE8;"> {{profile.fullName}}</p> <br>
+                        <mat-icon class="review-icon">person</mat-icon> <p style="display: inline-block;">Client: </p> <p style="display: inline-block; color: #757DE8;"> {{userData.firstName}}</p> <br>
                         <mat-icon class="review-icon">schedule</mat-icon> <p style="display: inline-block;">Duration: {{review.duration}}</p>
                         <p>{{review.comment}}</p>
                         <p style="display: inline-block;">Rating: {{review.rating}}</p> <mat-icon class="review-icon" style="color: #DDAF0A;">star</mat-icon>
@@ -57,9 +61,6 @@
         </div>
 
     </div>
-
-
-
 
 </div>
 

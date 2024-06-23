@@ -12,6 +12,7 @@ import {NgIf} from "@angular/common";
 import {ToolbarHomeComponent} from "../../../../public/components/toolbar-home/toolbar-home.component";
 import {UserService} from "../../services/user.service";
 import {User} from "../../model/user.entity";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
     selector: 'app-sign-up',
@@ -24,7 +25,9 @@ import {User} from "../../model/user.entity";
         MatButtonModule,
         NgIf,
         MatError,
-        ToolbarHomeComponent
+        ToolbarHomeComponent,
+        MatSelect,
+        MatOption
     ],
     templateUrl: './sign-up.component.html',
     styleUrl: './sign-up.component.css'
@@ -32,6 +35,7 @@ import {User} from "../../model/user.entity";
 export class SignUpComponent extends BaseFormComponent implements OnInit {
     form!: FormGroup;
     submitted= false;
+    transformedRole: string = '';
 
     constructor(private builder: FormBuilder, private authenticationService: AuthenticationService,
                 private userService:UserService){
@@ -46,6 +50,7 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
             paternalSurname: ['', Validators.required],
             maternalSurname: ['', Validators.required],
             email: ['', Validators.required],
+            roleSelected: ['', Validators.required]
         })
     }
 
@@ -53,29 +58,26 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
         if(this.form.invalid) return;
         let username= this.form.value.username;
         let password= this.form.value.password;
-        let roles = ["ROLE_CONTRACTOR"];
-
-        const signUpRequest= new SignUpRequest(username, password, roles);
-        this.authenticationService.signUp(signUpRequest);
-
-        // data for profile
+        let roleSelected = this.form.value.roleSelected;
         let firstName= this.form.value.firstName;
         let paternalSurname= this.form.value.paternalSurname;
         let maternalSurname= this.form.value.maternalSurname;
         let email= this.form.value.email;
+        let roles: string[] = [];
+        //adapt role input to the backend format (ROLE_ + role)
+        if(roleSelected === 'contractor'){
+            roles = ["ROLE_CONTRACTOR"];
+        } else if(roleSelected === 'remodeler') {
+            roles = ["ROLE_REMODELER"];
+        }
+        //add default parameters like description phone and image
+        let description = 'This is my description';
+        let phone = '990990990';
+        let image = 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg';
 
-        //profiles resource in the backend only accepts id, email, password, typeUser, fullname
+        const signUpRequest= new SignUpRequest(username, password, roles, email, firstName, paternalSurname, maternalSurname, description, phone, image);
+        this.authenticationService.signUp(signUpRequest);
 
-        //method to concatenate fullname with first, paternal and maternal surname
-        let fullName= firstName+' '+paternalSurname+' '+maternalSurname;
-
-        //method to adapt roles value to a normal string in lowercase
-        let roleUser = roles[0].replace('ROLE_', '').toLowerCase();
-
-        const profile = new User(email, password, roleUser, fullName);
-        this.userService.createUser(profile);
-
-        console.log('User '+profile.type+' created successfully')
         this.submitted = true;
     }
 
