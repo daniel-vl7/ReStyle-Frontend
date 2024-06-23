@@ -1,5 +1,5 @@
-<app-toolbar/>
-<app-sidebar/>
+<app-toolbar></app-toolbar>
+<app-sidebar></app-sidebar>
 
 <div id="create-project-container">
     <div class="project-header-container">
@@ -7,12 +7,12 @@
             <p class="project-title">Add Remodeling Project</p>
         </div>
     </div>
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" >
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
         <mat-tab class="label-title" label="Información">
             <div class="information-project-container">
                 <div class="project-form">
                     <p>Agrega fotos</p>
-                    <form id="editForm" name="editForm" [formGroup]="editForm">
+                    <form [formGroup]="portfolioForm" (ngSubmit)="onSubmit()">
                         <mat-form-field appearance="fill">
                             <div class="fileUploadContainer" [ngStyle]="{'margin-top' : editForm.get('photo')!.value ? '5px' :  '20px'}">
                                 <ng-container *ngIf="editForm.get('photo')!.value">
@@ -21,32 +21,32 @@
                                         <mat-icon>close</mat-icon>
                                     </button>
                                 </ng-container>
-                                <!-- no image -->
                                 <div *ngIf="!editForm.get('photo')!.value">
                                     <button mat-button style="width:100%; opacity: 80%;"><mat-icon>image</mat-icon></button>
                                 </div>
-                                <!-- put on top of the fileUploadContainer with opacity 0 -->
-                                <input #fileInput class="fileInput" type="file" multiple="multiple" accept="image/*"
-                                       (change)="setFileData($event)"/>
+                                <input #fileInput class="fileInput" type="file" multiple="multiple" accept="image/*" (change)="setFileData($event)"/>
                             </div>
-                            <input matInput formControlName="photo" readonly [hidden]="true " />
+                            <input matInput formControlName="photo" readonly hidden/>
                         </mat-form-field>
+
+                        <p> Título <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Escribe el título del proyecto</mat-label>
+                                <input matInput formControlName="title" placeholder="" required>
+                            </mat-form-field>
+                        </p>
+
+                        <p> Descripción <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Agregue una breve descripción del proyecto</mat-label>
+                                <textarea matInput formControlName="description" placeholder="" required></textarea>
+                            </mat-form-field>
+                        </p>
+
+                        <div class="send-button">
+                            <button class="send-btn" type="submit" mat-flat-button>Guardar</button>
+                        </div>
                     </form>
-                    <p> Título <br>
-                        <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Escribe el título del proyecto</mat-label>
-                            <input matInput placeholder=""  required >
-                        </mat-form-field>
-                    </p>
-                    <p> Descripción <br>
-                        <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Agregue una breve descripción del proyecto</mat-label>
-                            <textarea matInput placeholder=""  required></textarea>
-                        </mat-form-field>
-                    </p>
-                    <div class="send-button">
-                        <button class ="send-btn" (click)="addProject()" mat-flat-button>Guardar</button>
-                    </div>
                 </div>
                 <div class="advice-container">
                     <mat-icon style="opacity: 70%">info</mat-icon>

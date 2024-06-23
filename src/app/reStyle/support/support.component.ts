@@ -6,8 +6,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
-import {FormsModule, UntypedFormBuilder} from "@angular/forms";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 import {SupportSnackComponent} from "../support-snack/support-snack.component";
@@ -15,6 +14,7 @@ import {ContractorSidebarComponent} from "../../public/components/sidebarcontrac
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {Event} from "@angular/router";
 
 @Component({
   selector: 'app-support',
@@ -37,32 +37,26 @@ import { Observable } from 'rxjs';
   styleUrl: './support.component.css'
 })
 export class SupportComponent implements OnInit{
+  _supportForm: FormGroup;
+
+  get supportForm(): FormGroup {
+    return this._supportForm;
+  }
+
+  set supportForm(value: FormGroup) {
+    this._supportForm = value;
+  }
 
   type: string = '';
   userType: string | null = null;
 
-  @Input() maxRating = 5;
-  maxRatingArray:any =[];
 
-  @Input() SelectedStar = 0;
-  previousSelection = 0;
+  constructor(  private _snackBar: MatSnackBar, private http: HttpClient, private fb: FormBuilder) {
+    this._supportForm = this.fb.group({
+      title: ['', Validators.required],
+      message: ['', Validators.required],
 
-  constructor(private fb: UntypedFormBuilder,  private _snackBar: MatSnackBar, private http: HttpClient) {}
-
-  HandleMouseEnter(index: number): void {
-    this.SelectedStar = index+1;
-  }
-  HandleMouseLeave(): void {
-    if (this.previousSelection !== 0) {
-      this.SelectedStar = this.previousSelection;
-    }
-    else{
-      this.SelectedStar = 0;
-    }
-  }
-  Rating(index: number): void {
-    this.SelectedStar = index+1;
-    this.previousSelection = this.SelectedStar;
+    });
   }
 
   editForm = this.fb.group({
@@ -76,20 +70,17 @@ export class SupportComponent implements OnInit{
       verticalPosition: 'top',
     })
   }
-  setFileData(event: Event): void {
-    const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
-    if (eventTarget?.files?.[0]) {
-      const file: File = eventTarget.files[0];
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        this.editForm.get('photo')?.setValue(reader.result as string);
-      });
-      reader.readAsDataURL(file);
+
+  onSubmit() {
+    if (this._supportForm.valid) {
+      const formData = {
+        ...this._supportForm.value,
+
+      };
     }
   }
-
   ngOnInit(): void {
-    this.maxRatingArray = Array(this.maxRating).fill(0);
+
     this.fetchUserType().subscribe((userType: string) => {
       this.userType = userType;
     });

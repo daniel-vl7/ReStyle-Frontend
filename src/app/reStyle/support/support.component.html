@@ -12,22 +12,29 @@
         <mat-tab class="label-title" label="Información">
             <div class="information-support-container">
                 <div class="support-form">
-                    <p> Título <br>
-                        <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Texto</mat-label>
-                            <input matInput placeholder="">
-                        </mat-form-field>
-                    </p>
-                    <p> Mensaje <br>
-                        <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Texto</mat-label>
-                            <textarea matInput placeholder=""></textarea>
-                        </mat-form-field>
-                    </p>
-                    <div class="send-button">
-                        <button class ="send-btn" (click)="addInquiry()" mat-flat-button>Save</button>
-                    </div>
+                    <form [formGroup]="supportForm" (ngSubmit)="onSubmit()">
+                        <p style="font-weight: bold; font-size: 1.2rem;">Soporte</p>
+
+                        <p> Título <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Título</mat-label>
+                                <input matInput placeholder="" formControlName="title">
+                            </mat-form-field>
+                        </p>
+
+                        <p> Mensaje <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Mensaje</mat-label>
+                                <textarea matInput placeholder="" formControlName="message"></textarea>
+                            </mat-form-field>
+                        </p>
+
+                        <div class="send-button">
+                            <button class="send-btn" mat-flat-button type="submit">Enviar</button>
+                        </div>
+                    </form>
                 </div>
+
                 <div class="advice-container">
                     <mat-icon style="opacity: 70%">info</mat-icon>
                     <div class="advice-paragraph">

@@ -6,7 +6,6 @@ import {PopUpVisitaPreviaComponent} from "../pop-up-visita-previa/pop-up-visita-
 import {TrackingIService} from "../../services/tracking-i.service";
 import {TrakingI} from "../../models/trackingI";
 import {PlaceholderPopUpComponent} from "../placeholder-pop-up/placeholder-pop-up.component";
-import {MatDivider} from "@angular/material/divider";
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
 import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.component";
 
@@ -19,7 +18,6 @@ import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.co
       PopUpAprovacionComponent,
       PopUpCotizacionComponent,
       PopUpVisitaPreviaComponent,
-      MatDivider,
       PlaceholderPopUpComponent,
       ToolbarComponent,
       SidebarComponent

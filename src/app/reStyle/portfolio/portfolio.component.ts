@@ -1,17 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ToolbarComponent} from "../../public/components/toolbar/toolbar.component";
-import {SidebarComponent} from "../../public/components/sidebar/sidebar.component";
-import {MatIconModule} from "@angular/material/icon";
-import {MatTabsModule} from "@angular/material/tabs";
-import {MatInputModule} from "@angular/material/input";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatButtonModule} from "@angular/material/button";
-import {FormBuilder, FormGroup, FormsModule, UntypedFormBuilder, Validators} from "@angular/forms";
-import {ReactiveFormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-import {PortfolioSnackComponent} from "../portfolio-snack/portfolio-snack.component";
-import {SnackbarService} from "../../shared/services/snackbar.service";
+import { Component, Input, OnInit } from '@angular/core';
+import { ToolbarComponent } from "../../public/components/toolbar/toolbar.component";
+import { SidebarComponent } from "../../public/components/sidebar/sidebar.component";
+import { MatIconModule } from "@angular/material/icon";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatButtonModule } from "@angular/material/button";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { SnackbarService } from '../../shared/services/snackbar.service';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-portfolio',
@@ -30,42 +29,52 @@ import {SnackbarService} from "../../shared/services/snackbar.service";
     MatSnackBarModule
   ],
   templateUrl: './portfolio.component.html',
-  styleUrl: './portfolio.component.css'
+  styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit {
+  _portfolioForm: FormGroup;
 
-  @Input() maxRating = 5;
-  maxRatingArray:any =[];
+  get portfolioForm(): FormGroup {
+    return this._portfolioForm;
+  }
 
-  @Input() SelectedStar = 0;
-  previousSelection = 0;
+  set portfolioForm(value: FormGroup) {
+    this._portfolioForm = value;
+  }
 
-  constructor(private fb: UntypedFormBuilder,  private snackbarService: SnackbarService) {}
+  constructor(private snackbarService: SnackbarService, private http: HttpClient, private fb: FormBuilder) {
+    this._portfolioForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+    });
+
+    this.editForm = this.fb.group({
+      photo: [null]
+    });
+  }
 
   showSuccessMessage(messageContent: string) {
-    const successImage='assets/images/success.png'
+    const successImage = 'assets/images/success.png';
     this.snackbarService.showSuccess1(messageContent, successImage);
   }
 
   showErrorMessage(messageContent: string) {
-    const errorImage='assets/images/error.png'
+    const errorImage = 'assets/images/error.png';
     this.snackbarService.showError1(messageContent, errorImage);
   }
 
-  editForm = this.fb.group({
-    photo: []
-  });
+  editForm: FormGroup;
 
   addProject(): void {
     if (this.editForm.valid) {
-      this.showSuccessMessage('El proyecto ah sido agregado de manera exitosa');
-    }else if (!this.editForm.valid) {
+      this.showSuccessMessage('El proyecto ha sido agregado de manera exitosa');
+    } else {
       this.showErrorMessage('Error al agregar el proyecto');
     }
   }
 
   setFileData(event: Event): void {
-    const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
+    const eventTarget = event.target as HTMLInputElement;
     if (eventTarget?.files?.[0]) {
       const file: File = eventTarget.files[0];
       const reader = new FileReader();
@@ -76,8 +85,15 @@ export class PortfolioComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.maxRatingArray = Array(this.maxRating).fill(0);
+  onSubmit() {
+    if (this._portfolioForm.valid) {
+      const formData = {
+        ...this._portfolioForm.value,
+      };
+      // Submit formData to your backend or further processing
+    }
   }
 
+  ngOnInit(): void {
+  }
 }
