@@ -10,7 +10,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTabsModule} from "@angular/material/tabs";
 
-import {Remodeler} from "../../models/remodeler";
+import {Business} from "../../models/business";
 import {RemodelerApiService} from "../../services/remodeler-api.service";
 import {Router} from "@angular/router";
 import {FormsModule} from "@angular/forms";
@@ -41,7 +41,7 @@ import {ContractorSidebarComponent} from "../../../../public/components/sidebarc
 })
 export class RemodelerSearchComponent implements OnInit{
 
-  business: Remodeler[] = [];
+  businesses: Business[] = [];
   projects: any[] = [];
   searchTerm: string = '';
     type: string = ''
@@ -57,7 +57,7 @@ export class RemodelerSearchComponent implements OnInit{
 
   getResources():void{
     this.remodelerApiService.getBusiness().subscribe((data: any)=>{
-        this.business = data.map((item: any) => ({
+        this.businesses = data.map((item: any) => ({
           id: item.id,
           name: item.name,
           image: item.image,
@@ -90,7 +90,7 @@ export class RemodelerSearchComponent implements OnInit{
     if(filter === "Lima"){
       this.remodelerApiService.getBusiness().subscribe(
         (data: any) => {
-          this.business = data.filter((remodeler: any) => remodeler.city === filter).map((item: any) => ({
+          this.businesses = data.filter((business: any) => business.city === filter).map((item: any) => ({
             id: item.id,
             name: item.name,
             image: item.image,
@@ -108,7 +108,7 @@ export class RemodelerSearchComponent implements OnInit{
     }else if(filter === "Provincia"){
       this.remodelerApiService.getBusiness().subscribe(
         (data: any) => {
-          this.business = data.filter((remodeler: any) => remodeler.city !== 'Lima').map((item: any) => ({
+          this.businesses = data.filter((business: any) => business.city !== 'Lima').map((item: any) => ({
             id: item.id,
             name: item.name,
             image: item.image,
@@ -131,10 +131,10 @@ export class RemodelerSearchComponent implements OnInit{
     this.searchTerm = input;
     this.remodelerApiService.getBusiness().subscribe(
       (data: any) => {
-        this.business = data.filter((remodeler: any) =>
-          remodeler.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-          remodeler.city.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-          remodeler.expertise.toLowerCase().includes(this.searchTerm.toLowerCase())
+        this.businesses = data.filter((business: any) =>
+            business.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            business.city.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            business.expertise.toLowerCase().includes(this.searchTerm.toLowerCase())
         ).map((item: any) => ({
           id: item.id,
           name: item.name,

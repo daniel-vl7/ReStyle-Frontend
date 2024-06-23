@@ -21,17 +21,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './toolbar.component.css'
 })
 export class ToolbarComponent implements OnInit {
-
-  type: string = '';
   id: any | undefined;
 
   constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.type = sessionStorage.getItem("userType") || '';
-    this.id = sessionStorage.getItem("userId");
-    console.log(this.type + ' ' + this.id);
+    this.id = sessionStorage.getItem("signInId");
   }
 
   redirectToRemodelers() {
@@ -43,7 +39,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   redirectToProfile() {
-    this.router.navigate([`home/profile/${this.type}/${this.id}`])
+    this.router.navigate([`home/profile/contractor/${this.id}`])
   }
 
   logOut(){
@@ -51,17 +47,6 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/home']);
   }
   redirectToReviews(){
-    if(this.type === 'remodeler'){
-      alert('Solo los contratistas pueden acceder a esta sección');
-    }else if(this.type === 'contractor'){
-      this.router.navigateByUrl('/reviews');
-    }
-  }
-  redirectToProyects(){
-    if(this.type === 'remodeler'){
-      this.router.navigate(['/home/remodeler/tracking']);
-    }else if(this.type === 'contractor'){
-      this.router.navigateByUrl('/coming-soon');
-    }
+    this.router.navigateByUrl('reviews');
   }
 }

@@ -6,8 +6,8 @@
         <mat-card class="card">
 
             <mat-card-header class="title-profile">
-                <mat-card-title style="color: #3F51B5;"> {{userData.firstName +" " + userData.paternalSurname}}</mat-card-title>
-                <mat-card-subtitle> contratista </mat-card-subtitle>
+                <mat-card-title style="color: #3F51B5;"> {{profile.fullName}}</mat-card-title>
+                <mat-card-subtitle> Contratista </mat-card-subtitle>
             </mat-card-header>
 
             <mat-card-content class="information-profile">
@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="description-profile">
-                    <p>{{contracterData.description}}</p>
+                    <p>{{contractor.description}}</p>
                 </div>
 
                 <div class="contact-information">
@@ -26,13 +26,13 @@
                         <mat-icon class="icons">email</mat-icon>
                         <span class="correo-text">Correo</span>
                     </div>
-                    <p>{{userData.email}}</p>
+                    <p>{{profile.email}}</p>
 
                     <div class="information">
                         <mat-icon class="icons">perm_contact_calendar</mat-icon>
                         <span class="contacto-text">Contacto</span>
                     </div>
-                    <p>{{contracterData.phone}}</p>
+                    <p>{{contractor.phone}}</p>
 
                 </div>
             </mat-card-content>
@@ -47,7 +47,7 @@
                     </mat-card-header>
                     <mat-card-content class="review-content">
                         <p style="color: #3F51B5; font-size: 1rem; font-weight: bold;">{{review.project}}</p>
-                        <mat-icon class="review-icon">person</mat-icon> <p style="display: inline-block;">Client: </p> <p style="display: inline-block; color: #757DE8;"> {{userData.firstName +" " + userData.paternalSurname}}</p> <br>
+                        <mat-icon class="review-icon">person</mat-icon> <p style="display: inline-block;">Client: </p> <p style="display: inline-block; color: #757DE8;"> {{profile.fullName}}</p> <br>
                         <mat-icon class="review-icon">schedule</mat-icon> <p style="display: inline-block;">Duration: {{review.duration}}</p>
                         <p>{{review.comment}}</p>
                         <p style="display: inline-block;">Rating: {{review.rating}}</p> <mat-icon class="review-icon" style="color: #DDAF0A;">star</mat-icon>

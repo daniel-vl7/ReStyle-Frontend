@@ -5,10 +5,6 @@
       <p class="toolbar-title">ReStyle</p>
     </div>
     <div class="toolbar-icons">
-        <!--<div class="toolbar-chat">
-        <mat-icon class="material-icons-outlined" matBadge="3" matBadgeColor="warn">chat</mat-icon>
-        <p class="toolbar-msg" (click)="inDevelopment()">Mensajes</p>
-      </div> -->
         <div class="toolbar-profile">
         <mat-icon class="material-icons-outlined" aria-hidden="false" aria-label="Example person outline icon">person_outline</mat-icon>
         <p class="toolbar-prof" (click)="redirectToProfile()">Mi Perfil</p>
@@ -18,10 +14,8 @@
           <mat-icon class="material-icons-outlined" aria-hidden="false" aria-label="Example menu icon">menu</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="redirectToProyects()">Mis Proyectos</button>
           <button mat-menu-item (click)="redirectToRemodelers()">Remodeladores</button>
           <button mat-menu-item (click)="redirectToReviews()">Reseñas</button>
-            <!-- <button mat-menu-item (click)="inDevelopment()">Mensajes</button>-->
           <button mat-menu-item (click)="redirectToSupport()">Soporte</button>
             <button mat-menu-item (click)="logOut()">Cerrar Sesion</button>
         </mat-menu>

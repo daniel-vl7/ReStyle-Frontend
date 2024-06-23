@@ -16,6 +16,9 @@ export class UserService{
   getUserById(id: any){
     return this.http.get(`${this.baseUrl}/profiles/${id}`);
   }
+  getContractorById(id: any){
+    return this.http.get(`${this.baseUrl}/contractors/${id}`);
+  }
   getUserByField(field: string, value: any){
     return this.http.get(`${this.baseUrl}/${field}/${value}`);
   }

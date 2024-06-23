@@ -1,4 +1,4 @@
-export interface Remodeler {
+export interface Business {
   id: any,
   name: any,
   image: any,

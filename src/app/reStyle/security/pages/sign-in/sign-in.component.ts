@@ -9,19 +9,23 @@ import {NgIf} from "@angular/common";
 import {BaseFormComponent} from "../../../../shared/components/base-form.component";
 import {AuthenticationService} from "../../services/authentication.service";
 import {SignInRequest} from "../../model/sign-in.request";
+import {ToolbarHomeComponent} from "../../../../public/components/toolbar-home/toolbar-home.component";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [
-    MatCardModule,
-    MatFormField,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    NgIf,
-    MatError
-  ],
+    imports: [
+        MatCardModule,
+        MatFormField,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        NgIf,
+        MatError,
+        ToolbarHomeComponent,
+        RouterLink
+    ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css'
 })

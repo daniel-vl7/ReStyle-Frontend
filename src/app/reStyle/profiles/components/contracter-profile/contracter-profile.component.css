@@ -9,8 +9,6 @@
     font-family: "Montserrat", sans-serif;
 
 }
-
-
 .title-profile {
     width: 440px;
     display: inline-flex;
@@ -20,12 +18,10 @@
 }
 
 mat-card-title {
-    font-size: 45px;
+    font-size: 35px;
     font-weight: 600;
     color: #003F8F;
-
 }
-
 mat-card-subtitle {
     margin-top: 5%;
     font-size: 20px;
@@ -33,7 +29,6 @@ mat-card-subtitle {
     opacity: 90%;
     color: #003F8F;
 }
-
 .information-profile {
     display: flex;
     flex-direction: row;

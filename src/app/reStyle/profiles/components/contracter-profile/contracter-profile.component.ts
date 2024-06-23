@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Contracter} from "../../model/contracter.entity";
 import {ContracterService} from "../../services/contracter.service";
-import {ViewRenovationsService} from "../../services/view.renovations.service";
 import {MatButton} from "@angular/material/button";
 import {
   MatCard,
@@ -43,25 +42,28 @@ import {ContractorSidebarComponent} from "../../../../public/components/sidebarc
 export class ContracterProfileComponent implements OnInit{
 
   userID: any;
-  userData = new User();
+  profile: any = {};
+  contractor: any = {};
+
+  userData : any = {};
   remodeler: any = {};
   reviews: any[] = [];
   contracterData: Contracter = new Contracter()
 
   constructor(private contracterService: ContracterService,  private remodelerApiService: RemodelerApiService, private userService: UserService) {
-    this.userID = sessionStorage.getItem('userId');
+    this.userID = sessionStorage.getItem('signInId');
   }
 
   getResource() {
     this.userService.getUserById(this.userID).subscribe((response: any) => {
-      this.userData = response;
+      this.profile = response;
     }, (error) => {
       console.error('Error al leer usuario', error);
     });
-    this.contracterService.getContractorById(this.userID).subscribe((response: any)=>{
-      this.contracterData = response;
+    this.userService.getContractorById(this.userID).subscribe((response: any)=>{
+      this.contractor = response;
     },(error) => {
-      console.error('Error al agregar usuario', error);
+      console.error('Error al leer contratista', error);
     });
     this.remodelerApiService.getReviewByContractorId(this.userID).subscribe((response: any) => {
       this.reviews = response;

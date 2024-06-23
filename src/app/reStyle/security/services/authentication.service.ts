@@ -52,6 +52,7 @@ export class AuthenticationService {
                     this.signedInUserId.next(response.id);
                     this.signedInUsername.next(response.username);
                     localStorage.setItem('token', response.token);
+                    sessionStorage.setItem('signInId', response.id.toString());
                     console.log(`Signed in as ${response.username} with token ${response.token}`);
                     this.router.navigate([`business`]).then();
                 },

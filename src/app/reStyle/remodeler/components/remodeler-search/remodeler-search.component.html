@@ -30,16 +30,16 @@
     <mat-tab-group class="search-tabs">
 
         <mat-tab label="Todos">
-            <div class="remodeler-cards-home" *ngFor="let remodeler of business">
-                <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
-                <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(remodeler.id)">
+            <div class="remodeler-cards-home" *ngFor="let business of businesses">
+                <a (click)="redirectToComponent(business.id)">{{business.name}}</a>
+                <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(business.id)">
                     <mat-card class="project-card">
                         <mat-card-header>
-                            <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+                            <p style="color: #757DE8;">{{business.expertise}}</p>
                         </mat-card-header>
                         <mat-card-content>
                             <p>{{project.name}}</p>
-                            <img class="project-card-img" mat-card-image [src]="project.image" alt="Project Image">
+                            <img class="project-card-img" mat-card-image src="{{project.Image}}" alt="Project Image">
                         </mat-card-content>
                     </mat-card>
                 </div>
@@ -48,17 +48,17 @@
 
 
         <mat-tab label="Habitación/Baño">
-        <div class="remodeler-cards-expertise" *ngFor="let remodeler of business">
-          <ng-container *ngIf="remodeler.expertise === 'Habitacion' || remodeler.expertise === 'Baño'">
-            <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
-            <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(remodeler.id)">
+        <div class="remodeler-cards-expertise" *ngFor="let business of businesses">
+          <ng-container *ngIf="business.expertise === 'Habitacion' || business.expertise === 'Baño'">
+            <a (click)="redirectToComponent(business.id)">{{business.name}}</a>
+            <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(business.id)">
               <mat-card class="project-card">
                 <mat-card-header>
-                  <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+                  <p style="color: #757DE8;">{{business.expertise}}</p>
                 </mat-card-header>
                 <mat-card-content >
                   <p>{{project.name}}</p>
-                  <img class="project-card-img" mat-card-image src="{{project.image}}" alt="Project Image">
+                  <img class="project-card-img" mat-card-image src="{{project.Image}}" alt="Project Image">
                 </mat-card-content>
               </mat-card>
             </div>
@@ -67,17 +67,17 @@
       </mat-tab>
 
       <mat-tab label="Cocina/Comedor">
-        <div class="remodeler-cards-expertise" *ngFor="let remodeler of business">
-          <ng-container *ngIf="remodeler.expertise === 'Cocina'">
-            <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
-            <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(remodeler.id)">
+        <div class="remodeler-cards-expertise" *ngFor="let business of businesses">
+          <ng-container *ngIf="business.expertise === 'Cocina'">
+            <a (click)="redirectToComponent(business.id)">{{business.name}}</a>
+            <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(business.id)">
               <mat-card class="project-card">
                 <mat-card-header>
-                  <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+                  <p style="color: #757DE8;">{{business.expertise}}</p>
                 </mat-card-header>
                 <mat-card-content >
                   <p>{{project.name}}</p>
-                  <img class="project-card-img" mat-card-image src="{{project.image}}" alt="Project Image">
+                  <img class="project-card-img" mat-card-image src="{{project.Image}}" alt="Project Image">
                 </mat-card-content>
               </mat-card>
             </div>
@@ -85,17 +85,17 @@
         </div>
       </mat-tab>
       <mat-tab label="Otros">
-        <div class="remodeler-cards-expertise" *ngFor="let remodeler of business">
-          <ng-container *ngIf="remodeler.expertise === 'Hogar'">
-            <a (click)="redirectToComponent(remodeler.id)">{{remodeler.name}}</a>
-            <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(remodeler.id)">
+        <div class="remodeler-cards-expertise" *ngFor="let business of businesses">
+          <ng-container *ngIf="business.expertise === 'Hogar'">
+            <a (click)="redirectToComponent(business.id)">{{business.name}}</a>
+            <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(business.id)">
               <mat-card class="project-card">
                 <mat-card-header>
-                  <p style="color: #757DE8;">{{remodeler.expertise}}</p>
+                  <p style="color: #757DE8;">{{business.expertise}}</p>
                 </mat-card-header>
                 <mat-card-content >
                   <p>{{project.name}}</p>
-                  <img class="project-card-img" mat-card-image src="{{project.image}}" alt="Project Image">
+                  <img class="project-card-img" mat-card-image src="{{project.Image}}" alt="Project Image">
                 </mat-card-content>
               </mat-card>
             </div>
