@@ -11,6 +11,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {SignInRequest} from "../../model/sign-in.request";
 import {ToolbarHomeComponent} from "../../../../public/components/toolbar-home/toolbar-home.component";
 import {RouterLink} from "@angular/router";
+import {SnackbarService} from "../../../../shared/services/snackbar.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -33,9 +34,23 @@ export class SignInComponent extends BaseFormComponent implements OnInit{
   form!: FormGroup;
   submitted = false;
 
-  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService){
+
+  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService,  private snackbarService: SnackbarService){
     super();
   }
+
+    showSuccessMessage(messageContent: string) {
+        const successImage='assets/images/success.png'
+        this.snackbarService.showSuccess1(messageContent, successImage);
+    }
+
+    showErrorMessage(messageContent: string) {
+        const errorImage='assets/images/error.png'
+        this.snackbarService.showError1(messageContent, errorImage);
+    }
+
+
+
   ngOnInit(): void {
     this.form = this.builder.group(
         {
@@ -46,7 +61,10 @@ export class SignInComponent extends BaseFormComponent implements OnInit{
   }
 
   onSubmit(){
-    if(this.form.invalid) return;
+    if(this.form.invalid) {
+        this.showErrorMessage('El correo o la contraseña son incorrectos');
+        return
+    }
     let username= this.form.value.username;
     let password= this.form.value.password;
     const signInRequest= new SignInRequest(username, password);

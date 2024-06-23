@@ -18,7 +18,6 @@ import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.co
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
 import {RemodelerApiService} from "../../../remodeler/services/remodeler-api.service";
 import {ContractorSidebarComponent} from "../../../../public/components/sidebarcontractor/sidebar.component";
-import {DialogAnimationsExampleDialog} from "../edit-profile-dialog/edit-profile-dialog.component";
 
 @Component({
     selector: 'app-contracter-profile',
@@ -30,7 +29,6 @@ import {DialogAnimationsExampleDialog} from "../edit-profile-dialog/edit-profile
         MatCardTitle,
         MatCardHeader,
         MatCard,
-        MatDialog,
         MatIcon,
         NgForOf,
         MatCardImage,
@@ -77,6 +75,8 @@ export class ContracterProfileComponent implements OnInit {
             );
         }
     }
+
+    /*
     openEditDialog(): void {
         const dialogRef = this.dialog.open(DialogAnimationsExampleDialog, {
             width: '400px',
@@ -86,6 +86,7 @@ export class ContracterProfileComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
         });
     }
+    */
 
     transformRole(role: any): string {
         if(role[0] == 'ROLE_CONTRACTOR'){

@@ -6,7 +6,13 @@ import {Injectable} from "@angular/core";
 })
 export class SnackbarService {
 
-    constructor(private snackBar: MatSnackBar) { }
+
+    //private imageSuccess: string = 'assets/images/success.png';
+    //private imageError: string = 'assets/images/error.png';
+
+    constructor(private snackBar: MatSnackBar) {
+
+    }
 
     showSuccess1(message: string, image: string) {
         this.snackBar.openFromComponent(CustomSnackbarComponent, {
