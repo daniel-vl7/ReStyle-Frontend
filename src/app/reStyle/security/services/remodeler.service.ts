@@ -8,22 +8,16 @@ import {HttpClient} from "@angular/common/http";
 })
 export class RemodelerService{
 
-  /*constructor(http: HttpClient) {
-    super(http);
-    //this.resourceEndpoint = 'JanoverSaldana/remodelers/remodelers';
-    this.resourceEndpoint = '/remodeler';
-  }*/
-
-  baseUrl: string = 'http://localhost:3000';
+  baseUrl: string = 'http://localhost:8080/api/v1';
   constructor(private http:HttpClient) { }
 
   getRemodelers(){
-    return this.http.get(`${this.baseUrl}/remodeler`);
+    return this.http.get(`${this.baseUrl}/remodelers`);
   }
   getRemodelerById(id: any){
-    return this.http.get(`${this.baseUrl}/remodeler/${id}`);
+    return this.http.get(`${this.baseUrl}/remodelers/${id}`);
   }
   createRemodeler(data: any){
-    return this.http.post(`${this.baseUrl}/remodeler`, data);
+    return this.http.post(`${this.baseUrl}/remodelers`, data);
   }
 }

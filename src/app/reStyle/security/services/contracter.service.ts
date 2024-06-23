@@ -8,22 +8,16 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ContracterService {
 
-  /*constructor(http: HttpClient) {
-    super(http);
-    //this.resourceEndpoint = 'JanoverSaldana/contracters/contracters';
-    this.resourceEndpoint = '/contractor';
-  }*/
-
-  baseUrl: string = 'http://localhost:3000';
+  baseUrl: string = 'http://localhost:8080/api/v1';
   constructor(private http:HttpClient) { }
 
   getContractors(){
-    return this.http.get(`${this.baseUrl}/contractor`);
+    return this.http.get(`${this.baseUrl}/contractors`);
   }
   getContractorById(id: any){
-    return this.http.get(`${this.baseUrl}/contractor/${id}`);
+    return this.http.get(`${this.baseUrl}/contractors/${id}`);
   }
   createContractor(data: any){
-    return this.http.post(`${this.baseUrl}/contractor`, data);
+    return this.http.post(`${this.baseUrl}/contractors`, data);
   }
 }

@@ -6,25 +6,20 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class UserService{
-  /*constructor(http: HttpClient) {
-  super(http);
-  //this.resourceEndpoint = 'JanoverSaldana/users/users';
-  this.resourceEndpoint = '/user';
-}*/
 
-  baseUrl: string = 'http://localhost:3000';
+  baseUrl: string = 'http://localhost:8080/api/v1';
   constructor(private http:HttpClient) { }
 
   getUsers(){
-    return this.http.get(`${this.baseUrl}/user`);
+    return this.http.get(`${this.baseUrl}/profiles`);
   }
   getUserById(id: any){
-    return this.http.get(`${this.baseUrl}/user/${id}`);
+    return this.http.get(`${this.baseUrl}/profiles/${id}`);
   }
   getUserByField(field: string, value: any){
     return this.http.get(`${this.baseUrl}/${field}/${value}`);
   }
   createUser(data: any){
-    return this.http.post(`${this.baseUrl}/user`, data);
+    return this.http.post(`${this.baseUrl}/profiles`, data);
   }
 }

@@ -9,7 +9,7 @@ import {catchError, Observable, retry, throwError} from "rxjs";
 })
 export class BaseService<T> {
 
-  baseUrl: string = environment.baseURL;
+  baseUrl: string = environment.serverBasePath;
   resourceEndpoint: string = '/resources';
 
   constructor(private http: HttpClient) { }

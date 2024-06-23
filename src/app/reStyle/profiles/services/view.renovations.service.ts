@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ViewRenovationsService {
 
-  baseUrl: string = environment.baseURL;
+  /*baseUrl: string = environment.baseURL;
   constructor(private http:HttpClient) { }
 
   getRemodelers(){
@@ -16,5 +16,5 @@ export class ViewRenovationsService {
 
   getRemodelerById(id: any){
     return this.http.get(`${this.baseUrl}/alehandraxx/myrepo/remodelers/${id}`);
-  }
+  }*/
 }
