@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {BaseService} from "../../../shared/services/base.service";
-import {Remodeler} from "../model/remodeler.entity";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RemodelerService{
 
-  baseUrl: string = 'http://localhost:8080/api/v1';
+  baseUrl: string = `${environment.serverBasePath}`;
   constructor(private http:HttpClient) { }
 
   getRemodelers(){

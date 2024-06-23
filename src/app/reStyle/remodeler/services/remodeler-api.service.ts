@@ -6,7 +6,7 @@ import {environment} from "../../../../environments/environment";
 })
 export class RemodelerApiService {
 
-  baseUrl: string = 'http://localhost:8080/api/v1';
+  baseUrl: string = `${environment.serverBasePath}`;
   constructor(private http:HttpClient) { }
 
   getBusiness(){

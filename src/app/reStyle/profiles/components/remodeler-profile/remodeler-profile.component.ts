@@ -3,13 +3,10 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle} f
 import {MatIcon} from "@angular/material/icon";
 import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.component";
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
-import {Contracter} from "../../model/contracter.entity";
-import {ContracterService} from "../../services/contracter.service";
-import {ViewRenovationsService} from "../../services/view.renovations.service";
 import {RemodelerService} from "../../services/remodeler.service";
 import {UserService} from "../../../security/services/user.service";
 import {Remodeler} from "../../model/remodeler.entity";
-import {User} from "../../../security/model/user.entity";
+import {User} from "../../model/user.entity";
 import {NgForOf} from "@angular/common";
 
 @Component({
@@ -41,12 +38,12 @@ export class RemodelerProfileComponent implements OnInit{
     }
 
     getResource() {
-        this.userService.getUserById(this.userID).subscribe((response: any) => {
-            this.userData = response;
-            console.log(this.userData)
-        }, (error) => {
-            console.error('Error al leer usuario', error);
-        });
+        // this.userService.getUserById(this.userID).subscribe((response: any) => {
+        //     this.userData = response;
+        //     console.log(this.userData)
+        // }, (error) => {
+        //     console.error('Error al leer usuario', error);
+        // });
         this.remodelerService.getRemodelerByUserId(this.userID).subscribe((response: any)=>{
             this.remodelers = response;
             console.log(this.remodelerData)

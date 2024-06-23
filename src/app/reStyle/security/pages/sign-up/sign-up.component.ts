@@ -55,18 +55,27 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
         let password= this.form.value.password;
         let roles = ["ROLE_CONTRACTOR"];
 
+        const signUpRequest= new SignUpRequest(username, password, roles);
+        this.authenticationService.signUp(signUpRequest);
+
         // data for profile
         let firstName= this.form.value.firstName;
         let paternalSurname= this.form.value.paternalSurname;
         let maternalSurname= this.form.value.maternalSurname;
         let email= this.form.value.email;
-        let type= "contractor";
-        let image= "";
-        const profile = new User(email, password, type, firstName, paternalSurname, maternalSurname, image);
+
+        //profiles resource in the backend only accepts id, email, password, typeUser, fullname
+
+        //method to concatenate fullname with first, paternal and maternal surname
+        let fullName= firstName+' '+paternalSurname+' '+maternalSurname;
+
+        //method to adapt roles value to a normal string in lowercase
+        let roleUser = roles[0].replace('ROLE_', '').toLowerCase();
+
+        const profile = new User(email, password, roleUser, fullName);
         this.userService.createUser(profile);
 
-        const signUpRequest= new SignUpRequest(username, password, roles);
-        this.authenticationService.signUp(signUpRequest);
+        console.log('User '+profile.type+' created successfully')
         this.submitted = true;
     }
 

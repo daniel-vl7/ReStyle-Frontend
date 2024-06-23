@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BaseService} from "../../../shared/services/base.service";
 import {Contracter} from "../model/contracter.entity";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ContracterService {
     super(http);
     this.resourceEndpoint = 'JanoverSaldana/contracter/contracters';
   }*/
-  baseUrl: string = 'http://localhost:8080/api/v1';
+  baseUrl: string = `${environment.serverBasePath}`;
   constructor(private http:HttpClient) { }
 
   getContractors(){

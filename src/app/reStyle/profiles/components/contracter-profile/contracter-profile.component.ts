@@ -60,11 +60,11 @@ export class ContracterProfileComponent implements OnInit{
     }, (error) => {
       console.error('Error al leer usuario', error);
     });
-    this.userService.getContractorById(this.userID).subscribe((response: any)=>{
-      this.contractor = response;
-    },(error) => {
-      console.error('Error al leer contratista', error);
-    });
+    // this.userService.getContractorById(this.userID).subscribe((response: any)=>{
+    //   this.contractor = response;
+    // },(error) => {
+    //   console.error('Error al leer contratista', error);
+    // });
     this.remodelerApiService.getReviewByContractorId(this.userID).subscribe((response: any) => {
       this.reviews = response;
     }, (error) => {
