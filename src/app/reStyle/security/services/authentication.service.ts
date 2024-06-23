@@ -53,7 +53,7 @@ export class AuthenticationService {
                     this.signedInUsername.next(response.username);
                     localStorage.setItem('token', response.token);
                     console.log(`Signed in as ${response.username} with token ${response.token}`);
-                    this.router.navigate([`home/profile/contractor/${response.id}`]).then();
+                    this.router.navigate([`business`]).then();
                 },
                 error: (error) => {
                     this.signedIn.next(false);

@@ -44,7 +44,8 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
     if(this.form.invalid) return;
     let username= this.form.value.username;
     let password= this.form.value.password;
-    let roles = "ROLE_CONTRACTOR";
+    let roles = ["ROLE_CONTRACTOR"];
+
     const signUpRequest= new SignUpRequest(username, password, roles);
     this.authenticationService.signUp(signUpRequest);
     this.submitted = true;
