@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToolbarComponent } from "../../public/components/toolbar/toolbar.component";
 import { SidebarComponent } from "../../public/components/sidebar/sidebar.component";
 import { MatIconModule } from "@angular/material/icon";
@@ -10,8 +10,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CommonModule } from "@angular/common";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SnackbarService } from '../../shared/services/snackbar.service';
-import { HttpClient } from "@angular/common/http";
 import {RemodelerApiService} from "../remodeler/services/remodeler-api.service";
+import {ToolbarRemodelerComponent} from "../../public/components/toolbar-remodeler/toolbar-remodeler.component";
+import {Portfolio} from "./portfolio-entity";
 
 @Component({
   selector: 'app-portfolio',
@@ -27,27 +28,25 @@ import {RemodelerApiService} from "../remodeler/services/remodeler-api.service";
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    ToolbarRemodelerComponent
   ],
   templateUrl: './portfolio.component.html',
   styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent implements OnInit {
   _portfolioForm: FormGroup;
-  projectData: any ={}
+
 
   get portfolioForm(): FormGroup {
     return this._portfolioForm;
   }
 
-  set portfolioForm(value: FormGroup) {
-    this._portfolioForm = value;
-  }
-
-  constructor(private snackbarService: SnackbarService, private http: HttpClient, private fb: FormBuilder, private remodelerApiService : RemodelerApiService) {
+  constructor(private snackbarService: SnackbarService, private fb: FormBuilder, private remodelerApiService : RemodelerApiService) {
     this._portfolioForm = this.fb.group({
-      title: ['', Validators.required],
+      name: ['', Validators.required],
       description: ['', Validators.required],
+      image: ['', Validators.required],
     });
 
     this.editForm = this.fb.group({
@@ -67,43 +66,33 @@ export class PortfolioComponent implements OnInit {
 
   editForm: FormGroup;
 
-  addProject(): void {
-    if (this.editForm.valid) {
-      this.showSuccessMessage('El proyecto ha sido agregado de manera exitosa');
-    } else {
-      this.showErrorMessage('Error al agregar el proyecto');
-    }
-  }
-
-  setFileData(event: Event): void {
-    const eventTarget = event.target as HTMLInputElement;
-    if (eventTarget?.files?.[0]) {
-      const file: File = eventTarget.files[0];
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        this.editForm.get('photo')?.setValue(reader.result as string);
-      });
-      reader.readAsDataURL(file);
-    }
-  }
-
   onSubmit() {
     if (this._portfolioForm.valid) {
-      const formData = {
-        ...this._portfolioForm.value,
-      };
-      /* No permite el POST
-      this.remodelerApiService.createProject(formData).subscribe(
+
+      //input parameters in form
+      let name = this._portfolioForm.value.name;
+      let description = this._portfolioForm.value.description;
+      let image = this._portfolioForm.value.image;
+      //deafault parameters
+      let businessId = 1;
+      let contractorId = 1;
+      let startDate = "2024-06-24T17:51:01.729Z";
+      let finishDate = "2024-06-24T17:51:01.729Z";
+
+      const portfolioFormData = new Portfolio(name, description, businessId, contractorId, startDate, finishDate, image);
+
+      this.remodelerApiService.createProject(portfolioFormData).subscribe(
           (response) => {
             console.log('response', response);
           },
           (error) => {
             console.log('error', error);
           }
-      );*/
-      this.showSuccessMessage('El proyecto ha sido agregado de manera exitosa')
+      );
+      this.showSuccessMessage('The project has been added successfully')
+      console.log('portfolioFormData', portfolioFormData);
     } else if (this._portfolioForm.invalid) {
-      this.showErrorMessage('Error al agregar el proyecto, por favor revise los campos obligatorios e intente de nuevo');
+      this.showErrorMessage('Error adding the project');
     }
   }
 

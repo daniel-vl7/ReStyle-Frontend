@@ -11,14 +11,14 @@ import {UserService} from "../../../reStyle/security/services/user.service";
 @Component({
   selector: 'app-toolbar',
   standalone: true,
-  imports: [
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatBadgeModule,
-    RouterLink
-  ],
+    imports: [
+        MatToolbarModule,
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule,
+        MatBadgeModule,
+        RouterLink,
+    ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css'
 })

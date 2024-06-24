@@ -1,4 +1,3 @@
-
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav-content class="sidenav-content">
     <div class="sidenav-start">
@@ -6,14 +5,14 @@
           <a>
               <img mat-card-avatar class="sidenav-image" src="{{userData.image}}" alt="Sidenav avatar"/>
           </a>
-          <p class="user-name">Hola, {{userData.firstName}}!</p>
+          <p class="user-name">Hi, {{userData.firstName}}!</p>
 
       </div>
 
       <form class="search-form">
         <mat-form-field class="search-bar">
           <mat-icon matPrefix>search</mat-icon>
-          <input matInput placeholder="Buscar" value="">
+          <input matInput placeholder="Search" value="">
         </mat-form-field>
       </form>
     </div>
@@ -21,32 +20,18 @@
     <div class="sidenav-links">
       <a>
         <mat-icon matPrefix>home</mat-icon>
-        <p style="display: inline;" (click)="redirectToRemodelers()">Inicio</p>
+        <p style="display: inline;" (click)="redirectToRemodelers()">Home</p>
       </a>
         <div class="sidenav-links-separator"></div>
       <a (click)="redirectToProyects()">
         <mat-icon matPrefix>folder</mat-icon>
-          <p style="display: inline;">Mis Proyectos</p>
+          <p style="display: inline;">My Projects</p>
       </a>
-        <div class="sidenav-links-separator"></div>
-      <a (click)="redirectToRemodelers()">
-        <mat-icon matPrefix>people</mat-icon>
-          <p style="display: inline;">Remodeladores</p>
-      </a>
-        <!--  <div class="sidenav-links-separator"></div>
-        <a (click)="redirectToReviews()">
-          <mat-icon matPrefix>reviews</mat-icon>
-          <p style="display: inline;">Reseñas</p>
-        </a>
-      <div class="sidenav-links-separator"></div>
-        <a (click)="redirectToComingSoon()">
-          <mat-icon matPrefix>chat</mat-icon>
-          <p style="display: inline;">Mensajes</p>
-        </a>-->
+
         <div class="sidenav-links-separator"></div>
       <a (click)="redirectToSupport()">
         <mat-icon matPrefix>support_agent</mat-icon>
-        <p style="display: inline;">Soporte</p>
+        <p style="display: inline;">Support</p>
       </a>
         <div class="sidenav-links-separator"></div>
 

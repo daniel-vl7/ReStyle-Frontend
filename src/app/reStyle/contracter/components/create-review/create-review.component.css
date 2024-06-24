@@ -68,6 +68,36 @@
 #create-review-container mat-icon{
     cursor: pointer;
 }
+
+
+/*reviews styles*/
+.remodeler-reviews {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    font-family: "Montserrat", sans-serif;
+}
+.remodeler-reviews-card{
+    display: flex;
+    margin-bottom: 2rem;
+}
+.review-card{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 1rem;
+}
+.review-card-img{
+    margin-bottom: 1rem;
+}
+.review-content{
+    padding: 1rem;
+}
+.review-icon{
+    display: inline-block;
+
+}
+
 @media (hover){
     .send-btn:hover{
         transition: 0.4s ease;

@@ -7,18 +7,19 @@
     <div class="toolbar-icons">
         <div class="toolbar-profile">
         <mat-icon class="material-icons-outlined" aria-hidden="false" aria-label="Example person outline icon">person_outline</mat-icon>
-        <p class="toolbar-prof" (click)="redirectToProfile()">Mi Perfil</p>
+        <p class="toolbar-prof" (click)="redirectToProfile()">My Profile</p>
       </div>
       <div class="toolbar-menu">
         <button mat-button [matMenuTriggerFor]="menu">
           <mat-icon class="material-icons-outlined" aria-hidden="false" aria-label="Example menu icon">menu</mat-icon>
         </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="redirectToRemodelers()">Remodeladores</button>
-          <button mat-menu-item (click)="redirectToReviews()">Reseñas</button>
-          <button mat-menu-item (click)="redirectToSupport()">Soporte</button>
-            <button mat-menu-item (click)="logOut()">Cerrar Sesion</button>
-        </mat-menu>
+          <mat-menu #menu="matMenu" >
+            <button mat-menu-item (click)="redirectToRemodelers()">Remodelers</button>
+            <button mat-menu-item (click)="redirectToReviews()">Reviews</button>
+            <button mat-menu-item (click)="redirectToSupport()">Support</button>
+            <button mat-menu-item (click)="logOut()">Log out</button>
+          </mat-menu>
+
       </div>
     </div>
   </mat-toolbar-row>

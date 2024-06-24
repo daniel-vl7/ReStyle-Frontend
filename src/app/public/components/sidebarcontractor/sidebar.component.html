@@ -6,7 +6,7 @@
           <a>
               <img mat-card-avatar class="sidenav-image" src="{{userData.image}}" alt="Sidenav avatar"/>
           </a>
-          <p class="user-name">Hola, {{userData.firstName}}!</p>
+          <p class="user-name">Hi, {{userData.firstName}}!</p>
           <!--  <a (click)="inDevelopment()">
               <mat-icon matPrefix>settings</mat-icon>
           </a>
@@ -19,7 +19,7 @@
       <form class="search-form">
         <mat-form-field class="search-bar">
           <mat-icon matPrefix>search</mat-icon>
-          <input matInput placeholder="Buscar" value="">
+          <input matInput placeholder="Search" value="">
         </mat-form-field>
       </form>
     </div>
@@ -27,22 +27,18 @@
     <div class="sidenav-links">
       <a>
         <mat-icon matPrefix>home</mat-icon>
-        <p style="display: inline;" (click)="redirectToRemodelers()">Inicio</p>
+        <p style="display: inline;" (click)="redirectToRemodelers()">Home</p>
       </a>
-        <!--  <div class="sidenav-links-separator"></div>
-       <a (click)="redirectToProyects()">
-         <mat-icon matPrefix>folder</mat-icon>
-           <p style="display: inline;">Mis Proyectos</p>
-       </a>-->
+
         <div class="sidenav-links-separator"></div>
       <a (click)="redirectToRemodelers()">
         <mat-icon matPrefix>people</mat-icon>
-          <p style="display: inline;">Remodeladores</p>
+          <p style="display: inline;">Remodelers</p>
       </a>
         <div class="sidenav-links-separator"></div>
       <a (click)="redirectToReviews()">
         <mat-icon matPrefix>reviews</mat-icon>
-        <p style="display: inline;">Reseñas</p>
+        <p style="display: inline;">Reviews</p>
       </a>
         <!--  <div class="sidenav-links-separator"></div>
       <a (click)="redirectToComingSoon()">
@@ -52,7 +48,7 @@
         <div class="sidenav-links-separator"></div>
       <a (click)="redirectToSupport()">
         <mat-icon matPrefix>support_agent</mat-icon>
-        <p style="display: inline;">Soporte</p>
+        <p style="display: inline;">Support</p>
       </a>
         <div class="sidenav-links-separator"></div>
 

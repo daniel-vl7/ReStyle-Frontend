@@ -1,4 +1,4 @@
-<app-toolbar />
+<app-toolbar/>
 <app-contractor-sidebar-contractor/>
 
 <div id="create-review-container">
@@ -8,66 +8,79 @@
         </div>
     </div>
     <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" >
-        <mat-tab class="label-title" label="Información">
+        <mat-tab class="label-title" label="All reviews">
+            <div class="remodeler-reviews">
+                <h2 style="color: #3F51B5; font-size: 1.5rem;">Reseñas</h2>
+                <div class="remodeler-reviews-card" *ngFor="let review of reviews">
+                    <mat-card class="review-card">
+                        <mat-card-header>
+                            <img width="400px" class="review-card-img" mat-card-image src="{{review.image}}" alt="Review Image">
+                        </mat-card-header>
+                        <mat-card-content class="review-content">
+                            <p style="color: #3F51B5; font-size: 1rem; font-weight: bold;">{{review.project}}</p>
+                            <mat-icon class="review-icon">schedule</mat-icon> <p style="display: inline-block;">Duration: {{review.duration}}</p>
+                            <p>{{review.comment}}</p>
+                            <p style="display: inline-block;">Rating: {{review.rating}}</p> <mat-icon class="review-icon" style="color: #DDAF0A;">star</mat-icon>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-tab>
+
+        <mat-tab class="label-title" label="Create">
             <div class="information-review-container">
                 <div class="review-form">
-                    <p>Agrega fotos</p>
-                    <form id="editForm" name="editForm" [formGroup]="editForm">
-                        <mat-form-field appearance="fill">
-                            <div class="fileUploadContainer" [ngStyle]="{'margin-top' : editForm.get('photo')!.value ? '5px' :  '20px'}">
-                                <ng-container *ngIf="editForm.get('photo')!.value">
-                                    <img [src]="editForm.get('photo')!.value" width="150px" alt="review photo"/>
-                                    <button class="deleteButton" mat-icon-button (click)="fileInput.value = ''; editForm.get('photo')?.setValue(null);">
-                                        <mat-icon>close</mat-icon>
-                                    </button>
-                                </ng-container>
-                                <!-- no image -->
-                                <div *ngIf="!editForm.get('photo')!.value">
-                                    <button mat-button style="width:100%; opacity: 80%;"><mat-icon>image</mat-icon></button>
-                                </div>
-                                <!-- put on top of the fileUploadContainer with opacity 0 -->
-                                <input #fileInput class="fileInput" type="file" multiple="multiple" accept="image/*"
-                                       (change)="setFileData($event)"/>
-                            </div>
-                            <input matInput formControlName="photo" readonly [hidden]="true " />
+                    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+                        <p>Image Url</p>
+                        <mat-form-field appearance="fill" style="width: 100%;">
+                            <mat-label>Add an image of the result</mat-label>
+                            <input matInput formControlName="image" placeholder="Image url" required>
                         </mat-form-field>
-                    </form>
-                    <p> Título <br>
-                        <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Texto</mat-label>
-                            <input matInput placeholder="">
-                        </mat-form-field>
-                    </p>
-                    <p> Descripción <br>
-                        <mat-form-field appearance="fill"  style="width: 100%;">
-                            <mat-label>Texto</mat-label>
-                            <textarea matInput placeholder=""></textarea>
-                        </mat-form-field>
-                    </p>
-                    <p> Rating <br>
-                        <mat-icon
-                                *ngFor="let icon of maxRatingArray; let index=index"
-                                (mouseenter)="HandleMouseEnter(index)"
-                                (mouseleave)="HandleMouseLeave()"
-                                (click)="Rating(index)"
-                                [ngClass]="{checked:SelectedStar > index}"
-                        >
-                            star</mat-icon>
 
-                    </p>
-                    <div class="send-button">
-                        <button class ="send-btn" (click)="createReview()" mat-flat-button>Save</button>
-                    </div>
+                        <p> Duration <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Add the project duration</mat-label>
+                                <input matInput formControlName="duration" placeholder="Duration" required>
+                            </mat-form-field>
+                        </p>
+
+                        <p> Comment <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Add a short comment</mat-label>
+                                <textarea matInput formControlName="comment" placeholder="Comment" required></textarea>
+                            </mat-form-field>
+                        </p>
+
+                        <p> Rating <br>
+                            <mat-form-field appearance="fill" style="width: 100%;">
+                                <mat-label>Rating</mat-label>
+                                <input matInput formControlName="rating" placeholder="Description" required
+                                       type="number" min="1" max="5">
+                                <mat-error *ngIf="reviewForm.get('rating')?.hasError('required')">
+                                    Rating is required
+                                </mat-error>
+                                <mat-error *ngIf="reviewForm.get('rating')?.hasError('min')">
+                                    Rating must be at least 1
+                                </mat-error>
+                                <mat-error *ngIf="reviewForm.get('rating')?.hasError('max')">
+                                    Rating cannot be more than 5
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+
+                        <div class="send-button">
+                            <button class="send-btn" type="submit" mat-flat-button>Save</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="advice-container">
                     <mat-icon style="opacity: 70%">info</mat-icon>
                     <div class="advice-paragraph">
-                        <p>Comparte tu experiencia con un servicio. Describe qué te gustó o no te gustó, con detalles
-                            específicos. No menciones precios ni ofertas. Céntrate en cómo te hizo sentir el servicio.
-                            Las mejores reseñas son informativas y fáciles de leer.</p>
+                        <p>Share your experience with a service. Describe what you liked or disliked, with specific details. Avoid mentioning prices . Focus on how the service made you feel. The best reviews are informative and easy to read.</p>
                     </div>
                 </div>
             </div>
         </mat-tab>
+
     </mat-tab-group>
 </div>

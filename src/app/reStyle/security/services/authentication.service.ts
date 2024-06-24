@@ -67,10 +67,10 @@ export class AuthenticationService {
                     sessionStorage.setItem('signInId', response.id.toString());
                     console.log(`Signed in as ${response.username} with token ${response.token} and id ${response.id}`);
                     this.router.navigate([`business`]).then();
-                    this.showSuccessMessage('Inicio de sesión exitoso. ' + response.username + ' Bienvenido a ReStyle!')
+                    this.showSuccessMessage('Sign In succesfully. ' + response.username + ' Welcome to Restyle!')
                 },
                 error: (error) => {
-                    this.showErrorMessage('El usuario o la contraseña son incorrectos. Por favor, inténtelo de nuevo.');
+                    this.showErrorMessage('Th user or password are incorrect. Please, try again.');
                     this.signedIn.next(false);
                     this.signedInUserId.next(0);
                     this.signedInUsername.next('');

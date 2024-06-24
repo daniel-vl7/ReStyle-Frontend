@@ -1,35 +1,35 @@
-<app-toolbar> </app-toolbar>
+<app-toolbar />
 <app-contractor-sidebar-contractor *ngIf="this.type == 'contractor'" />
-<app-sidebar *ngIf="this.type == 'remodeler'" />
+<app-sidebar *ngIf="this.type == 'remodeler'"/>
 
 <div class="remodeler-search-container">
   <div class="remodeler-search-start">
     <form class="search-form">
       <mat-form-field class="search-bar">
         <mat-icon matPrefix>search</mat-icon>
-        <input class="bar" matInput placeholder="Buscar por..." value="" [(ngModel)]="searchTerm" name="searchTerm">
+        <input class="bar" matInput placeholder="Search by..." value="" [(ngModel)]="searchTerm" name="searchTerm">
       </mat-form-field>
     </form>
 
     <div class="search-filter">
-      <button class="filter-btn" mat-button [matMenuTriggerFor]="menu">Filtro</button>
+      <button class="filter-btn" mat-button [matMenuTriggerFor]="menu">Filter</button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="applyFilter('Lima')">Solo en Lima</button>
-        <button mat-menu-item (click)="applyFilter('Provincia')">Solo en provincia</button>
-        <button mat-menu-item (click)="applyFilter('Todos')">Ver Todos</button>
+        <button mat-menu-item (click)="applyFilter('Lima')">Lima</button>
+        <button mat-menu-item (click)="applyFilter('Provincia')">Regions</button>
+        <button mat-menu-item (click)="applyFilter('Todos')">See All</button>
       </mat-menu>
     </div>
 
     <div class="search-buttons">
-      <button class ="search-btn" mat-flat-button (click)="applySearchFilter(searchTerm)">Buscar</button>
-      <button class ="clear-btn" mat-flat-button (click)="clearFilter()">Limpiar</button>
+      <button class ="search-btn" mat-flat-button (click)="applySearchFilter(searchTerm)">Search</button>
+      <button class ="clear-btn" mat-flat-button (click)="clearFilter()">Clean</button>
     </div>
   </div>
 
   <div class="remodeler-search-tabs">
     <mat-tab-group class="search-tabs">
 
-        <mat-tab label="Todos">
+        <mat-tab label="All">
             <div class="remodeler-cards-home" *ngFor="let business of businesses">
                 <a (click)="redirectToComponent(business.id)">{{business.name}}</a>
                 <div class="remodeler-card" *ngFor="let project of getProjectsByBusinessId(business.id)">
@@ -47,7 +47,7 @@
         </mat-tab>
 
 
-        <mat-tab label="Habitación/Baño">
+        <mat-tab label="Bedroom/Bathroom">
         <div class="remodeler-cards-expertise" *ngFor="let business of businesses">
           <ng-container *ngIf="business.expertise === 'Habitacion' || business.expertise === 'Baño'">
             <a (click)="redirectToComponent(business.id)">{{business.name}}</a>
@@ -66,7 +66,7 @@
         </div>
       </mat-tab>
 
-      <mat-tab label="Cocina/Comedor">
+      <mat-tab label="Kitchen/Dinning Room">
         <div class="remodeler-cards-expertise" *ngFor="let business of businesses">
           <ng-container *ngIf="business.expertise === 'Cocina'">
             <a (click)="redirectToComponent(business.id)">{{business.name}}</a>
@@ -84,7 +84,7 @@
           </ng-container>
         </div>
       </mat-tab>
-      <mat-tab label="Otros">
+      <mat-tab label="Others">
         <div class="remodeler-cards-expertise" *ngFor="let business of businesses">
           <ng-container *ngIf="business.expertise === 'Hogar'">
             <a (click)="redirectToComponent(business.id)">{{business.name}}</a>

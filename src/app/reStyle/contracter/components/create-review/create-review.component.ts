@@ -6,7 +6,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
-import {FormsModule, UntypedFormBuilder} from "@angular/forms";
+import {FormGroup, FormsModule, UntypedFormBuilder, Validators} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
@@ -15,6 +15,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {ContractorSidebarComponent} from "../../../../public/components/sidebarcontractor/sidebar.component";
 import {SnackbarService} from "../../../../shared/services/snackbar.service";
+import {ToolbarRemodelerComponent} from "../../../../public/components/toolbar-remodeler/toolbar-remodeler.component";
+import {Review} from "../../model/review";
+import {ReviewService} from "../../services/review.service";
+import {MatCard, MatCardContent, MatCardHeader, MatCardImage} from "@angular/material/card";
 
 
 @Component({
@@ -32,92 +36,81 @@ import {SnackbarService} from "../../../../shared/services/snackbar.service";
     ReactiveFormsModule,
     CommonModule,
     MatSnackBarModule,
-    ContractorSidebarComponent
+    ContractorSidebarComponent,
+    ToolbarRemodelerComponent,
+    MatCard,
+    MatCardContent,
+    MatCardHeader,
+    MatCardImage
   ],
   templateUrl: './create-review.component.html',
   styleUrl: './create-review.component.css'
 })
 export class CreateReviewComponent implements OnInit{
 
-  type: string = '';
+  reviews: any[] = [];
+  userId: any;
+  _reviewForm: FormGroup;
 
-  @Input() maxRating = 5;
-  maxRatingArray:any =[];
-
-  userType: string | null = null;
-
-  ngOnInit(): void {
-    this.maxRatingArray = Array(this.maxRating).fill(0);
-
-    this.fetchUserType().subscribe((userType: string) => {
-      this.userType = userType;
-    });
-
+  get reviewForm(): FormGroup {
+    return this._reviewForm;
   }
-  @Input() SelectedStar = 0;
-  previousSelection = 0;
 
-  constructor(private fb: UntypedFormBuilder,  private snackbarService: SnackbarService, private http: HttpClient) {}
+
+  constructor(private fb: UntypedFormBuilder,  private snackbarService: SnackbarService, private reviewService: ReviewService) {
+    this._reviewForm = this.fb.group({
+      comment: [''],
+      duration: [''],
+      image: [''],
+      rating: ['', [Validators.required, Validators.min(1), Validators.max(5)]]
+    });
+  }
 
   showSuccessMessage(messageContent: string) {
     const successImage='assets/images/success.png'
     this.snackbarService.showSuccess1(messageContent, successImage);
   }
 
-  showErrorMessage() {
+  showErrorMessage(messageContent:string) {
     const errorImage='assets/images/error.png'
-    this.snackbarService.showError1('Complete correctamente los compos requeridos', errorImage);
-  }
-
-  private fetchUserType(): Observable<string> {
-    return this.http.get<string>('http://localhost:3000/userType'); // Adjust URL as per your JSON Server setup
-  }
-
-  HandleMouseEnter(index: number): void {
-    this.SelectedStar = index+1;
-  }
-  HandleMouseLeave(): void {
-    if (this.previousSelection !== 0) {
-      this.SelectedStar = this.previousSelection;
-    }
-    else{
-      this.SelectedStar = 0;
-    }
-  }
-  Rating(index: number): void {
-    this.SelectedStar = index+1;
-    this.previousSelection = this.SelectedStar;
+    this.snackbarService.showError1(messageContent, errorImage);
   }
 
   editForm = this.fb.group({
     photo: []
   });
 
+  onSubmit(){
+    if (this.reviewForm.valid) {
 
-  createReview(): void {
-    if (this.editForm.valid) {
-        this.showSuccessMessage('La reseña ha sido creada correctamente');
+      //input parameters in form
+        let comment = this.reviewForm.value.comment;
+        let duration = this.reviewForm.value.duration;
+        let image = this.reviewForm.value.image;
+        let rating = this.reviewForm.value.rating;
 
+        //default values
+      let contractorId:any = this.userId = sessionStorage.getItem('signInId');;
+      let projectId = 1;
 
-        //Logica para guardar la reseña en la Base de datos
+      const reviewFormData = new Review(contractorId, projectId, comment, duration, image, rating);
 
-    }else if (this.editForm.invalid) {
-        this.showErrorMessage();
-    }
-  }
+      console.log(reviewFormData);
 
-
-  setFileData(event: Event): void {
-    const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
-    if (eventTarget?.files?.[0]) {
-      const file: File = eventTarget.files[0];
-      const reader = new FileReader();
-      reader.addEventListener('load', () => {
-        this.editForm.get('photo')?.setValue(reader.result as string);
+      this.reviewService.createReview(reviewFormData).subscribe((data) => {
+        console.log(data);
       });
-      reader.readAsDataURL(file);
+
+      this.showSuccessMessage('Review added successfully!');
+    }else if (this.reviewForm.invalid) {
+      this.showErrorMessage('Complete all fields before submitting!');
     }
   }
 
+  ngOnInit() {
+    this.reviewService.getReviews().subscribe((data:any) => {
+      this.reviews = data;
+    });
+  }
 
 }

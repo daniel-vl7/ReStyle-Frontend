@@ -17,25 +17,27 @@ import {FormsModule} from "@angular/forms";
 import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.component";
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
 import {ContractorSidebarComponent} from "../../../../public/components/sidebarcontractor/sidebar.component";
+import {ToolbarRemodelerComponent} from "../../../../public/components/toolbar-remodeler/toolbar-remodeler.component";
 
 @Component({
   selector: 'app-remodeler-search',
   standalone: true,
-    imports: [
-        MatPaginator,
-        MatInputModule,
-        MatCardModule,
-        MatIconModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatTabsModule,
-        CommonModule,
-        FormsModule,
-        SidebarComponent,
-        ToolbarComponent,
-        ContractorSidebarComponent
-    ],
+  imports: [
+    MatPaginator,
+    MatInputModule,
+    MatCardModule,
+    MatIconModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatTabsModule,
+    CommonModule,
+    FormsModule,
+    SidebarComponent,
+    ToolbarComponent,
+    ContractorSidebarComponent,
+    ToolbarRemodelerComponent
+  ],
   templateUrl: './remodeler-search.component.html',
   styleUrl: './remodeler-search.component.css'
 })

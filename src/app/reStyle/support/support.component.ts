@@ -14,24 +14,26 @@ import {ContractorSidebarComponent} from "../../public/components/sidebarcontrac
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {SnackbarService} from "../../shared/services/snackbar.service";
+import {ToolbarRemodelerComponent} from "../../public/components/toolbar-remodeler/toolbar-remodeler.component";
 
 @Component({
   selector: 'app-support',
   standalone: true,
-  imports: [
-    ToolbarComponent,
-    SidebarComponent,
-    MatIconModule,
-    MatTabsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatSnackBarModule,
-    ContractorSidebarComponent
-  ],
+    imports: [
+        ToolbarComponent,
+        SidebarComponent,
+        MatIconModule,
+        MatTabsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        MatSnackBarModule,
+        ContractorSidebarComponent,
+        ToolbarRemodelerComponent
+    ],
   templateUrl: './support.component.html',
   styleUrl: './support.component.css'
 })
