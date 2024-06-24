@@ -62,14 +62,15 @@ export class SignInComponent extends BaseFormComponent implements OnInit{
 
   onSubmit(){
     if(this.form.invalid) {
-        this.showErrorMessage('El correo o la contraseña son incorrectos');
-        return
+       this.form.reset();
     }
+
     let username= this.form.value.username;
     let password= this.form.value.password;
     const signInRequest= new SignInRequest(username, password);
     this.authenticationService.signIn(signInRequest);
     this.submitted=true;
+    this.form.reset();
   }
 
 }

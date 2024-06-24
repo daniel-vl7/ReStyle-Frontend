@@ -10,11 +10,11 @@ import {FormsModule, UntypedFormBuilder} from "@angular/forms";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-import {ReviewSnackbarComponent} from "../review-snackbar/review-snackbar.component";
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {ContractorSidebarComponent} from "../../../../public/components/sidebarcontractor/sidebar.component";
+import {SnackbarService} from "../../../../shared/services/snackbar.service";
 
 
 @Component({
@@ -57,7 +57,17 @@ export class CreateReviewComponent implements OnInit{
   @Input() SelectedStar = 0;
   previousSelection = 0;
 
-  constructor(private fb: UntypedFormBuilder,  private _snackBar: MatSnackBar, private http: HttpClient) {}
+  constructor(private fb: UntypedFormBuilder,  private snackbarService: SnackbarService, private http: HttpClient) {}
+
+  showSuccessMessage(messageContent: string) {
+    const successImage='assets/images/success.png'
+    this.snackbarService.showSuccess1(messageContent, successImage);
+  }
+
+  showErrorMessage() {
+    const errorImage='assets/images/error.png'
+    this.snackbarService.showError1('Complete correctamente los compos requeridos', errorImage);
+  }
 
   private fetchUserType(): Observable<string> {
     return this.http.get<string>('http://localhost:3000/userType'); // Adjust URL as per your JSON Server setup
@@ -85,12 +95,18 @@ export class CreateReviewComponent implements OnInit{
 
 
   createReview(): void {
-    this._snackBar.openFromComponent(ReviewSnackbarComponent, {
-      duration:3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    })
+    if (this.editForm.valid) {
+        this.showSuccessMessage('La reseña ha sido creada correctamente');
+
+
+        //Logica para guardar la reseña en la Base de datos
+
+    }else if (this.editForm.invalid) {
+        this.showErrorMessage();
+    }
   }
+
+
   setFileData(event: Event): void {
     const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
     if (eventTarget?.files?.[0]) {

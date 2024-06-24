@@ -7,6 +7,7 @@ import {SignInResponse} from "../model/sign-in.response";
 import {SignInRequest} from "../model/sign-in.request";
 import {SignUpRequest} from "../model/sign-up.request";
 import {SignUpResponse} from "../model/sign-up.response";
+import {SnackbarService} from "../../../shared/services/snackbar.service";
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
@@ -21,7 +22,18 @@ export class AuthenticationService {
     private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-    constructor(private router: Router, private http: HttpClient) { }
+    constructor(private router: Router, private http: HttpClient, private snackbarService: SnackbarService) { }
+
+
+    showSuccessMessage(messageContent: string) {
+        const successImage='assets/images/success.png'
+        this.snackbarService.showSuccess1(messageContent, successImage);
+    }
+
+    showErrorMessage(messageContent: string) {
+        const errorImage='assets/images/error.png'
+        this.snackbarService.showError1(messageContent, errorImage);
+    }
 
     get isSignedIn() { return this.signedIn.asObservable();}
 
@@ -55,13 +67,16 @@ export class AuthenticationService {
                     sessionStorage.setItem('signInId', response.id.toString());
                     console.log(`Signed in as ${response.username} with token ${response.token}`);
                     this.router.navigate([`business`]).then();
+                    this.showSuccessMessage('Inicio de sesión exitoso. ' + response.username + ' Bienvenido a ReStyle!')
                 },
                 error: (error) => {
+                    this.showErrorMessage('El usuario o la contraseña son incorrectos. Por favor, inténtelo de nuevo.');
                     this.signedIn.next(false);
                     this.signedInUserId.next(0);
                     this.signedInUsername.next('');
                     console.error(`Error while signing in: ${error}`);
                     this.router.navigate(['home/sign-in']).then();
+
                 }
             });
     }

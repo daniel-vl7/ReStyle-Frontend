@@ -11,8 +11,8 @@ import {MatError} from "@angular/material/form-field";
 import {NgIf} from "@angular/common";
 import {ToolbarHomeComponent} from "../../../../public/components/toolbar-home/toolbar-home.component";
 import {UserService} from "../../services/user.service";
-import {User} from "../../model/user.entity";
 import {MatOption, MatSelect} from "@angular/material/select";
+import {SnackbarService} from "../../../../shared/services/snackbar.service";
 
 @Component({
     selector: 'app-sign-up',
@@ -38,8 +38,18 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
     transformedRole: string = '';
 
     constructor(private builder: FormBuilder, private authenticationService: AuthenticationService,
-                private userService:UserService){
+                private userService:UserService, private snackbarService: SnackbarService){
         super();
+    }
+
+    showSuccessMessage(messageContent: string) {
+        const successImage='assets/images/success.png'
+        this.snackbarService.showSuccess1(messageContent, successImage);
+    }
+
+    showErrorMessage() {
+        const errorImage='assets/images/error.png'
+        this.snackbarService.showError1('Complete correctamente los datos', errorImage);
     }
 
     ngOnInit(): void {
@@ -55,7 +65,13 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
     }
 
     onSubmit(){
-        if(this.form.invalid) return;
+        if(this.form.invalid) {
+            this.showErrorMessage();
+            return;
+        }
+
+        this.showSuccessMessage('Usuario creado correctamente')
+
         let username= this.form.value.username;
         let password= this.form.value.password;
         let roleSelected = this.form.value.roleSelected;
@@ -79,6 +95,8 @@ export class SignUpComponent extends BaseFormComponent implements OnInit {
         this.authenticationService.signUp(signUpRequest);
 
         this.submitted = true;
+
+        this.form.reset();
     }
 
 }

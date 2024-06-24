@@ -90,7 +90,12 @@ export class PortfolioComponent implements OnInit {
       const formData = {
         ...this._portfolioForm.value,
       };
+      this.showSuccessMessage('El proyecto ha sido agregado de manera exitosa')
+
+
       // Submit formData to your backend or further processing
+    } else if (this._portfolioForm.invalid) {
+      this.showErrorMessage('Error al agregar el proyecto, por favor revise los campos obligatorios e intente de nuevo');
     }
   }
 

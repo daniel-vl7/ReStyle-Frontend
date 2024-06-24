@@ -8,13 +8,12 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatButtonModule} from "@angular/material/button";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
-import {SupportSnackComponent} from "../support-snack/support-snack.component";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ContractorSidebarComponent} from "../../public/components/sidebarcontractor/sidebar.component";
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Event} from "@angular/router";
+import {SnackbarService} from "../../shared/services/snackbar.service";
 
 @Component({
   selector: 'app-support',
@@ -43,42 +42,50 @@ export class SupportComponent implements OnInit{
     return this._supportForm;
   }
 
-  set supportForm(value: FormGroup) {
-    this._supportForm = value;
-  }
-
   type: string = '';
   userType: string | null = null;
 
 
-  constructor(  private _snackBar: MatSnackBar, private http: HttpClient, private fb: FormBuilder) {
+  constructor(  private snackbarService: SnackbarService, private http: HttpClient, private fb: FormBuilder) {
     this._supportForm = this.fb.group({
       title: ['', Validators.required],
       message: ['', Validators.required],
-
     });
   }
 
-  editForm = this.fb.group({
-    photo: []
-  });
 
-  addInquiry(): void {
-    this._snackBar.openFromComponent(SupportSnackComponent, {
-      duration:3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    })
+
+  showSuccessMessage(messageContent: string) {
+    const successImage='assets/images/success.png'
+    this.snackbarService.showSuccess1(messageContent, successImage);
   }
+
+  showErrorMessage() {
+    const errorImage='assets/images/error.png'
+    this.snackbarService.showError1('Complete correctamente los datos', errorImage);
+  }
+
+
+
 
   onSubmit() {
     if (this._supportForm.valid) {
-      const formData = {
-        ...this._supportForm.value,
 
-      };
+      this.showSuccessMessage('Mensaje enviado correctamente');
+
+      //Aquí va la logica para enviar el mensaje al servidor y guardar en la base de datos
+
+
+      this._supportForm.reset()
+
+    } else if (this._supportForm.invalid) {
+      this.showErrorMessage();
+      this._supportForm.reset()
     }
   }
+
+
+
   ngOnInit(): void {
 
     this.fetchUserType().subscribe((userType: string) => {
