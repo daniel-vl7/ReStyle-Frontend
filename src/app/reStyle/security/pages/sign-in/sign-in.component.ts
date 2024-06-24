@@ -12,6 +12,7 @@ import {SignInRequest} from "../../model/sign-in.request";
 import {ToolbarHomeComponent} from "../../../../public/components/toolbar-home/toolbar-home.component";
 import {RouterLink} from "@angular/router";
 import {SnackbarService} from "../../../../shared/services/snackbar.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -34,22 +35,22 @@ export class SignInComponent extends BaseFormComponent implements OnInit{
   form!: FormGroup;
   submitted = false;
 
-
-  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService,  private snackbarService: SnackbarService){
+  constructor(
+      private builder: FormBuilder,
+      private authenticationService: AuthenticationService,
+      private snackbarService: SnackbarService){
     super();
   }
 
-    showSuccessMessage(messageContent: string) {
-        const successImage='assets/images/success.png'
-        this.snackbarService.showSuccess1(messageContent, successImage);
-    }
+  showSuccessMessage(messageContent: string) {
+      const successImage='assets/images/success.png'
+      this.snackbarService.showSuccess1(messageContent, successImage);
+  }
 
-    showErrorMessage(messageContent: string) {
-        const errorImage='assets/images/error.png'
-        this.snackbarService.showError1(messageContent, errorImage);
-    }
-
-
+  showErrorMessage(messageContent: string) {
+      const errorImage='assets/images/error.png'
+      this.snackbarService.showError1(messageContent, errorImage);
+  }
 
   ngOnInit(): void {
     this.form = this.builder.group(
@@ -57,7 +58,7 @@ export class SignInComponent extends BaseFormComponent implements OnInit{
           username: ['', Validators.required],
           password: ['', Validators.required],
         }
-    )
+    );
   }
 
   onSubmit(){
@@ -72,5 +73,4 @@ export class SignInComponent extends BaseFormComponent implements OnInit{
     this.submitted=true;
     this.form.reset();
   }
-
 }

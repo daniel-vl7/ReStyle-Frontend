@@ -17,7 +17,9 @@ export class UserService{
   getUserById(id: any){
     return this.http.get(`${this.baseUrl}/users/${id}`);
   }
-
+  updateUser(id: any, data: any){
+    return this.http.put(`${this.baseUrl}/users/${id}`, data);
+  }
   getProfiles(){
     return this.http.get(`${this.baseUrl}/profiles`);
   }

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Contracter} from "../../model/contracter.entity";
 import {ContracterService} from "../../services/contracter.service";
 import {MatButton} from "@angular/material/button";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {
     MatCard, MatCardActions,
     MatCardContent,
@@ -18,6 +18,10 @@ import {SidebarComponent} from "../../../../public/components/sidebar/sidebar.co
 import {ToolbarComponent} from "../../../../public/components/toolbar/toolbar.component";
 import {RemodelerApiService} from "../../../remodeler/services/remodeler-api.service";
 import {ContractorSidebarComponent} from "../../../../public/components/sidebarcontractor/sidebar.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
+import {EditFormComponent} from "../edit-form/edit-form.component";
 
 @Component({
     selector: 'app-contracter-profile',
@@ -36,6 +40,10 @@ import {ContractorSidebarComponent} from "../../../../public/components/sidebarc
         ToolbarComponent,
         ContractorSidebarComponent,
         MatCardActions,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule
     ],
     templateUrl: './contracter-profile.component.html',
     styleUrls: ['./contracter-profile.component.css']
@@ -46,6 +54,12 @@ export class ContracterProfileComponent implements OnInit {
     remodeler: any = {};
     reviews: any[] = [];
     contracter: Contracter | null = null;
+
+    email: any;
+    description: any;
+    phone: any;
+    image: any;
+    isEditing: boolean = false;
 
     constructor(
         private contracterService: ContracterService,
@@ -75,18 +89,24 @@ export class ContracterProfileComponent implements OnInit {
             );
         }
     }
-
-    /*
-    openEditDialog(): void {
-        const dialogRef = this.dialog.open(DialogAnimationsExampleDialog, {
-            width: '400px',
-            data: { ...this.userData }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-        });
+    openEditDialog() {
+        this.isEditing = !this.isEditing;
+        if(this.isEditing){
+            const dialogRef = this.dialog.open(EditFormComponent, {
+                width: '400px',
+                data: { ...this.userData }
+            });
+            dialogRef.afterClosed().subscribe(result => {
+                this.userService.updateUser(this.userData.id,result).subscribe(
+                    (data: any) => {
+                        this.userData = data;
+                    },
+                    (error: any) => {
+                        console.log(error);
+                    });
+            });
+        }
     }
-    */
 
     transformRole(role: any): string {
         if(role[0] == 'ROLE_CONTRACTOR'){

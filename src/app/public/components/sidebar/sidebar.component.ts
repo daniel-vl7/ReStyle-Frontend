@@ -5,6 +5,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatBadgeModule} from "@angular/material/badge";
 import {Router, RouterLink} from "@angular/router";
+import {UserService} from "../../../reStyle/security/services/user.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -24,14 +25,24 @@ export class SidebarComponent implements OnInit{
 
   type: string = '';
   id: any | undefined;
+  userData: any = {};
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
     this.type = sessionStorage.getItem("userType") || '';
-    this.id = sessionStorage.getItem("userId");
-    console.log(this.type + ' ' + this.id);
+    this.id = sessionStorage.getItem("signInId");
+    if (this.id) {
+      this.userService.getUserById(this.id).subscribe(
+          (response: any) => {
+            this.userData = response;
+          },
+          (error) => {
+            console.error('Error al leer usuario', error);
+          }
+      );
+    }
   }
 
   redirectToRemodelers(){

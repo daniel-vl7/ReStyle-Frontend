@@ -3,15 +3,10 @@
   <mat-sidenav-content class="sidenav-content">
     <div class="sidenav-start">
       <div class ="sidenav-icons">
-          <a (click)="redirectToProfile()">
-              <img mat-card-avatar class="sidenav-image" src="/assets/images/placeholder-user.jpg" alt="Sidenav avatar"/>
+          <a>
+              <img mat-card-avatar class="sidenav-image" src="{{userData.image}}" alt="Sidenav avatar"/>
           </a>
-          <!--  <a (click)="inDevelopment()">
-              <mat-icon matPrefix>settings</mat-icon>
-          </a>
-          <a (click)="inDevelopment()">
-              <mat-icon matBadge="1" matBadgeSize="medium" matBadgeColor="warn">notifications</mat-icon>
-          </a>-->
+          <p class="user-name">Hola, {{userData.firstName}}!</p>
 
       </div>
 

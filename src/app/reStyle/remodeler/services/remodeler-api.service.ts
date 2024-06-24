@@ -15,6 +15,9 @@ export class RemodelerApiService {
   getBusinessById(id: any){
     return this.http.get(`${this.baseUrl}/businesses/${id}`);
   }
+  createProject(data: any){
+    return this.http.post(`${this.baseUrl}/projects`, data);
+  }
   createProjectRequest(data: any){
     return this.http.post(`${this.baseUrl}/projectRequests`, data);
   }

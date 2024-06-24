@@ -49,13 +49,18 @@ photo-profile {
     height: 200px;
     border-radius: 50%;
     border: 5px solid #003F8F;
+    margin-left: 2rem;
+    object-fit: cover;
+    object-position: center;
 }
 
 .description-profile {
     width: 40%;
 
 }
-
+.actions{
+    margin: 2rem;
+}
 .contact-information{
     width: 20%;
 }
@@ -69,44 +74,29 @@ photo-profile {
     margin-right: 8px; /* Espacio entre el ícono y el texto */
 }
 
-
-
-
-
 /*--------------------------------------------------------------------------*/
 
 
 /*reviews styles*/
-
 .remodeler-reviews {
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
     font-family: "Montserrat", sans-serif;
 }
-
-
-
 .remodeler-reviews-card{
-    flex-direction: row;
-    margin-top: 1rem;
-    padding: 0.2rem;
+    display: flex;
+    margin-bottom: 2rem;
 }
-
 .review-card{
     display: flex;
     flex-direction: row;
-    max-width: 100%;
-    padding: 3rem;
-
+    width: 62rem;
+    padding: 1rem;
 }
-
-
 .review-card-img{
     margin-bottom: 1rem;
 }
-
-
 .review-content{
     padding: 1rem;
 }

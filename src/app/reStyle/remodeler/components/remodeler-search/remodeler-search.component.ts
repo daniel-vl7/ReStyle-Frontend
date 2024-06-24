@@ -44,15 +44,14 @@ export class RemodelerSearchComponent implements OnInit{
   businesses: Business[] = [];
   projects: any[] = [];
   searchTerm: string = '';
-    type: string = ''
+  type: string = ''
   @ViewChild(MatPaginator, {static:true}) paginator!: MatPaginator;
 
   constructor(private remodelerApiService: RemodelerApiService, private router: Router) {
   }
   ngOnInit(){
+    this.type = sessionStorage.getItem("userType".toString()) || '';
     this.getResources();
-      this.type = sessionStorage.getItem("userType") || '';
-
   }
 
   getResources():void{

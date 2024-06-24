@@ -17,15 +17,15 @@ export class RemodelerService{
   constructor(private http:HttpClient) { }
 
   getRemodelers(){
-    return this.http.get(`${this.baseUrl}/remodelers`);
+    return this.http.get(`${this.baseUrl}/businesses`);
   }
   getRemodelerById(id: any){
-    return this.http.get(`${this.baseUrl}/remodelers/${id}`);
+    return this.http.get(`${this.baseUrl}/businesses/${id}`);
   }
   getRemodelerByUserId(id: any){
-    return this.http.get(`${this.baseUrl}/remodelers?userId=${id}`);
+    return this.http.get(`${this.baseUrl}/businesses?userId=${id}`);
   }
   createRemodeler(data: any){
-    return this.http.post(`${this.baseUrl}/remodelers`, data);
+    return this.http.post(`${this.baseUrl}/businesses`, data);
   }
 }

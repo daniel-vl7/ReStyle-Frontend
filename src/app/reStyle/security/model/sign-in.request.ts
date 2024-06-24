@@ -6,6 +6,7 @@ export class SignInRequest {
   constructor(username: string, password: string) {
     this.password = password;
     this.username = username;
+
   }
 
 }

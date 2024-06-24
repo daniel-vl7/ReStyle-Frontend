@@ -11,6 +11,7 @@ import { CommonModule } from "@angular/common";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { HttpClient } from "@angular/common/http";
+import {RemodelerApiService} from "../remodeler/services/remodeler-api.service";
 
 @Component({
   selector: 'app-portfolio',
@@ -33,6 +34,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class PortfolioComponent implements OnInit {
   _portfolioForm: FormGroup;
+  projectData: any ={}
 
   get portfolioForm(): FormGroup {
     return this._portfolioForm;
@@ -42,7 +44,7 @@ export class PortfolioComponent implements OnInit {
     this._portfolioForm = value;
   }
 
-  constructor(private snackbarService: SnackbarService, private http: HttpClient, private fb: FormBuilder) {
+  constructor(private snackbarService: SnackbarService, private http: HttpClient, private fb: FormBuilder, private remodelerApiService : RemodelerApiService) {
     this._portfolioForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -90,10 +92,16 @@ export class PortfolioComponent implements OnInit {
       const formData = {
         ...this._portfolioForm.value,
       };
+      /* No permite el POST
+      this.remodelerApiService.createProject(formData).subscribe(
+          (response) => {
+            console.log('response', response);
+          },
+          (error) => {
+            console.log('error', error);
+          }
+      );*/
       this.showSuccessMessage('El proyecto ha sido agregado de manera exitosa')
-
-
-      // Submit formData to your backend or further processing
     } else if (this._portfolioForm.invalid) {
       this.showErrorMessage('Error al agregar el proyecto, por favor revise los campos obligatorios e intente de nuevo');
     }

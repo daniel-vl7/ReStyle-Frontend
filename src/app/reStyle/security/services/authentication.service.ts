@@ -56,7 +56,7 @@ export class AuthenticationService {
     }
 
     signIn(signInRequest: SignInRequest) {
-        console.log(signInRequest);
+        //console.log(signInRequest);
         return this.http.post<SignInResponse>(`${this.basePath}/authentication/sign-in`, signInRequest, this.httpOptions)
             .subscribe({
                 next: (response) => {
@@ -65,7 +65,7 @@ export class AuthenticationService {
                     this.signedInUsername.next(response.username);
                     localStorage.setItem('token', response.token);
                     sessionStorage.setItem('signInId', response.id.toString());
-                    console.log(`Signed in as ${response.username} with token ${response.token}`);
+                    console.log(`Signed in as ${response.username} with token ${response.token} and id ${response.id}`);
                     this.router.navigate([`business`]).then();
                     this.showSuccessMessage('Inicio de sesión exitoso. ' + response.username + ' Bienvenido a ReStyle!')
                 },
